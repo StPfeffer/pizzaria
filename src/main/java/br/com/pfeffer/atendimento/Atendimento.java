@@ -45,7 +45,7 @@ public class Atendimento {
         String logradouro = scanner.nextLine();
 
         System.out.print("Insira o número: ");
-        int numero = scanner.nextInt();
+        int numero = Utils.checkScannerInputForInteger("Por favor, informe um número: ");
         scanner.nextLine();
 
         System.out.print("(OpcionaL) Complemento: ");

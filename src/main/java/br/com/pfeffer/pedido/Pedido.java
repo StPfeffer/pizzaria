@@ -1,7 +1,7 @@
 package br.com.pfeffer.pedido;
 
 import br.com.pfeffer.atendimento.Atendimento;
-import br.com.pfeffer.cliente.Cliente;
+import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
 
 import java.util.Scanner;
@@ -21,7 +21,7 @@ public class Pedido {
 
         System.out.print("Primeiramente, escolga o tipo de atendimento que deseja: ");
 
-        int opcao = scanner.nextInt();
+        int opcao = Utils.checkScannerInputForInteger("Escoha o tipo de atendimento baseado nas opções acima: ");
 
         switch (Math.abs(opcao)) {
             case 1 -> {
