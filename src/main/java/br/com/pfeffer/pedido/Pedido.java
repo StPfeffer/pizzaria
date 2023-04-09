@@ -15,7 +15,7 @@ public class Pedido {
         System.out.println("Bem-vindo!");
 
         for (EnumTipoPedido tipoPedido : EnumTipoPedido.values()) {
-            System.out.printf("[ %d ] - %s\n", tipoPedido.getId(), tipoPedido.getValue());
+            System.out.printf("[ %d ] - %s\n", tipoPedido.getId(), tipoPedido.getDescricao());
         }
 
         System.out.println("Primeiramente, escohla o tipo de atendimento que deseja: ");
