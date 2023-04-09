@@ -3,6 +3,8 @@ package br.com.pfeffer.atendimento;
 import br.com.pfeffer.atendimento.enums.EnumStatusAtendimento;
 import br.com.pfeffer.cliente.Cliente;
 import br.com.pfeffer.core.utils.Utils;
+import br.com.pfeffer.pedido.Pedido;
+import br.com.pfeffer.pedido.enums.EnumTipoPedido;
 
 import java.util.Date;
 
@@ -20,9 +22,16 @@ public class Atendimento {
     }
 
     public static void iniciarAtendimento() {
+        EnumTipoPedido tipoPedido = Pedido.getTipoPedidoFromuser();
+
+        switch (tipoPedido) {
+            case ENTREGA, BALCAO -> Atendimento.continuarAtendimento();
+            case LA_CARTE -> System.out.println("Realizar pedido...");
+        }
     }
 
     public static void continuarAtendimento() {
+        System.out.println("Continuando atendimento...");
     }
 
     public int getNumero() {
