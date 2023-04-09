@@ -24,19 +24,17 @@ public class Utils {
             String temp = scanner.nextLine();
 
             if (temp.isEmpty()) {
-                System.out.println(mensagem);
+                System.out.print(mensagem);
                 input = Integer.MIN_VALUE;
             } else {
                 try {
                     input = Integer.parseInt(temp);
                 } catch (NumberFormatException e) {
                     input = Integer.MIN_VALUE;
-                    System.out.println(mensagem);
+                    System.out.print(mensagem);
                 }
             }
         } while (input == Integer.MIN_VALUE);
-
-        scanner.close();
 
         return input;
     }

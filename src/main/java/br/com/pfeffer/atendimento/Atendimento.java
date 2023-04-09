@@ -13,22 +13,28 @@ import java.util.Scanner;
 public class Atendimento {
     private int numero;
     private Cliente cliente;
-    private Date dataAtendimento;
+    private Date dhInicioAtendimento;
+    private Date dhFinalAtendimento;
     private EnumStatusAtendimento statusAtendimento;
 
     public Atendimento(Cliente cliente, EnumStatusAtendimento statusAtendimento) {
         this.numero = Utils.randomInteger(true);
         this.cliente = cliente;
-        this.dataAtendimento = new Date();
+        this.dhInicioAtendimento = new Date();
         this.statusAtendimento = statusAtendimento;
     }
 
     public static void iniciarAtendimento() {
-        EnumTipoPedido tipoPedido = Pedido.getTipoPedidoFromuser();
+        EnumTipoPedido tipoPedido = Pedido.getTipoPedidoFromUser();
 
         switch (tipoPedido) {
-            case ENTREGA, BALCAO -> Atendimento.continuarAtendimento();
-            case LA_CARTE -> Pedido.realizarPedido();
+            case ENTREGA:
+            case BALCAO:
+                Atendimento.continuarAtendimento();
+                break;
+            case LA_CARTE:
+                Pedido.realizarPedido();
+                break;
         }
     }
 
@@ -39,24 +45,21 @@ public class Atendimento {
         String nome = scanner.nextLine();
 
         System.out.print("Insira seu telefone: ");
-        String telefone = scanner.nextLine();
+        String telefone = Utils.onlyNumbers(scanner.nextLine());
 
         System.out.print("Insira o nome da rua/avenida: ");
         String logradouro = scanner.nextLine();
 
         System.out.print("Insira o número: ");
         int numero = Utils.checkScannerInputForInteger("Por favor, informe um número: ");
-        scanner.nextLine();
 
-        System.out.print("(OpcionaL) Complemento: ");
-        String complemento = scanner.nextLine();
+        System.out.print("(Opcional) Complemento: ");
+        String complemento = scanner.nextLine().trim();
         complemento = complemento.isEmpty() ? null : complemento;
 
         System.out.print("(Opcional) Bairro: ");
-        String bairro = scanner.nextLine();
+        String bairro = scanner.nextLine().trim();
         bairro = bairro.isEmpty() ? null : bairro;
-
-        scanner.close();
 
         Endereco endereco = new Endereco(logradouro, numero, complemento, bairro);
         Cliente cliente = new Cliente(nome, telefone, endereco);
@@ -81,12 +84,20 @@ public class Atendimento {
         this.cliente = cliente;
     }
 
-    public Date getDataAtendimento() {
-        return dataAtendimento;
+    public Date getDhInicioAtendimento() {
+        return dhInicioAtendimento;
     }
 
-    public void setDataAtendimento(Date dataAtendimento) {
-        this.dataAtendimento = dataAtendimento;
+    public void setDhInicioAtendimento(Date dhInicioAtendimento) {
+        this.dhInicioAtendimento = dhInicioAtendimento;
+    }
+
+    public Date getDhFinalAtendimento() {
+        return dhFinalAtendimento;
+    }
+
+    public void setDhFinalAtendimento(Date dhFinalAtendimento) {
+        this.dhFinalAtendimento = dhFinalAtendimento;
     }
 
     public EnumStatusAtendimento getStatusAtendimento() {
