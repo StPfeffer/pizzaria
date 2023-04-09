@@ -8,17 +8,17 @@ public enum EnumStatusAtendimento implements IEnum {
     CANCELADO("CANCELADO", "Atendimento Cancelado"),
     FINALIZADO("FINALIZADO", "Atendimento Finalizado");
 
-    private final String key;
+    private final String constante;
     private final String descricao;
 
-    EnumStatusAtendimento(String key, String descricao) {
-        this.key = key;
+    EnumStatusAtendimento(String constante, String descricao) {
+        this.constante = constante;
         this.descricao = descricao;
     }
 
     @Override
-    public String getKey() {
-        return key;
+    public String getConstante() {
+        return constante;
     }
 
     @Override

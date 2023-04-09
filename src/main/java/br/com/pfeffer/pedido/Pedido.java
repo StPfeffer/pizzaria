@@ -1,6 +1,7 @@
 package br.com.pfeffer.pedido;
 
 import br.com.pfeffer.atendimento.Atendimento;
+import br.com.pfeffer.cliente.Cliente;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
 
 import java.util.Scanner;
@@ -18,7 +19,7 @@ public class Pedido {
             System.out.printf("[ %d ] - %s\n", tipoPedido.getId(), tipoPedido.getDescricao());
         }
 
-        System.out.println("Primeiramente, escohla o tipo de atendimento que deseja: ");
+        System.out.print("Primeiramente, escolga o tipo de atendimento que deseja: ");
 
         int opcao = scanner.nextInt();
 
@@ -41,6 +42,14 @@ public class Pedido {
         scanner.close();
 
         return EnumTipoPedido.BALCAO;
+    }
+
+    public static void realizarPedido() {
+        realizarPedido(new Atendimento(null, null));
+    }
+
+    public static void realizarPedido(Atendimento atendimento) {
+        System.out.println("Realizando o pedido...");
     }
 
     public EnumTipoPedido getTipoPedido() {

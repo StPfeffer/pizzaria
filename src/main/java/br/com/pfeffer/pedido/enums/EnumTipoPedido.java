@@ -7,21 +7,21 @@ public enum EnumTipoPedido implements IEnum {
     ENTREGA("ENTREGA", "Pedido para Entrega", 2, 4.0f),
     BALCAO("BALCAO", "Pedido no Balcão", 3, 0.0f);
 
-    private final String key;
+    private final String constante;
     private final String descricao;
     private final int id;
     private final float taxa;
 
-    EnumTipoPedido(String key, String descricao, int id, float taxa) {
-        this.key = key;
+    EnumTipoPedido(String constante, String descricao, int id, float taxa) {
+        this.constante = constante;
         this.id = id;
         this.descricao = descricao;
         this.taxa = taxa;
     }
 
     @Override
-    public String getKey() {
-        return key;
+    public String getConstante() {
+        return constante;
     }
 
     @Override

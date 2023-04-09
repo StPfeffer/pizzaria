@@ -8,6 +8,7 @@ public class Cliente {
     public Cliente(String nome, String telefone, Endereco endereco) {
         this.nome = nome;
         this.telefone = telefone;
+        this.endereco = endereco;
     }
 
     public String getNome() {
