@@ -1,12 +1,16 @@
 package br.com.pfeffer.cliente;
 
 import br.com.pfeffer.core.utils.Utils;
+import br.com.pfeffer.pedido.Pedido;
+
+import java.util.List;
 
 public class Cliente {
-    private int id;
+    private final int id;
     private String nome;
     private String telefone;
     private Endereco endereco;
+    private List<Pedido> pedidos;
 
     public Cliente(String nome, String telefone, Endereco endereco) {
         this.id = Utils.randomInteger(true);
@@ -17,10 +21,6 @@ public class Cliente {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getNome() {
@@ -45,5 +45,13 @@ public class Cliente {
 
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
+    }
+
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
     }
 }

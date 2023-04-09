@@ -3,7 +3,7 @@ package br.com.pfeffer.cliente;
 import br.com.pfeffer.core.utils.Utils;
 
 public class Endereco {
-    private int id;
+    private final int id;
     private String logradouro;
     private int numero;
     private String complemento;
@@ -19,10 +19,6 @@ public class Endereco {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getLogradouro() {

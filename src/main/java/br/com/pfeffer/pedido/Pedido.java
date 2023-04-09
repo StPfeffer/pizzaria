@@ -1,11 +1,11 @@
 package br.com.pfeffer.pedido;
 
 import br.com.pfeffer.atendimento.Atendimento;
-import br.com.pfeffer.core.utils.Mapper;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.pedido.enums.EnumStatusPedido;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
 import br.com.pfeffer.reserva.Mesa;
+import br.com.pfeffer.core.utils.Mapper;
 
 public class Pedido {
     private int numero;
@@ -49,6 +49,7 @@ public class Pedido {
     }
 
     public static void realizarPedido(Atendimento atendimento) {
+        // debug
         // Mapper.writeValueAsString(atendimento);
         System.out.println("Realizando o pedido...");
     }
