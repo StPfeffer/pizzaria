@@ -24,7 +24,7 @@ public class Pedido {
         System.out.println("Bem-vindo!");
 
         for (EnumTipoPedido tipoPedido : EnumTipoPedido.values()) {
-            System.out.printf("[ %d ] - %s\n", tipoPedido.getId(), tipoPedido.getDescricao());
+            System.out.printf("[ %d ] - %s\n", tipoPedido.ordinal() + 1, tipoPedido.getDescricao());
         }
 
         System.out.print("Primeiramente, escolga o tipo de atendimento que deseja: ");
@@ -44,11 +44,11 @@ public class Pedido {
         }
     }
 
-    public static void realizarPedido() {
-        realizarPedido(new Atendimento(null, null));
+    public static void realizarPedido(EnumTipoPedido tipoPedido) {
+        realizarPedido(new Atendimento(null, null), tipoPedido);
     }
 
-    public static void realizarPedido(Atendimento atendimento) {
+    public static void realizarPedido(Atendimento atendimento, EnumTipoPedido tipoPedido) {
         // debug
         // Mapper.writeValueAsString(atendimento);
         System.out.println("Realizando o pedido...");
