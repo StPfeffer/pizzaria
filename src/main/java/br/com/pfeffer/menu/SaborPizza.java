@@ -11,7 +11,6 @@ public class SaborPizza {
     private String descricao;
     private float preco;
     private EnumTipoSabor tipoSabor;
-
     private List<SaborPizza> sabores;
 
     public SaborPizza() {

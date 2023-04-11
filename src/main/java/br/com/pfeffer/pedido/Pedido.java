@@ -2,6 +2,7 @@ package br.com.pfeffer.pedido;
 
 import br.com.pfeffer.atendimento.Atendimento;
 import br.com.pfeffer.core.utils.Utils;
+import br.com.pfeffer.menu.Menu;
 import br.com.pfeffer.pedido.enums.EnumStatusPedido;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
 import br.com.pfeffer.reserva.Mesa;
@@ -21,14 +22,6 @@ public class Pedido {
     }
 
     public static EnumTipoPedido getTipoPedidoFromUser() {
-        System.out.println("Bem-vindo!");
-
-        for (EnumTipoPedido tipoPedido : EnumTipoPedido.values()) {
-            System.out.printf("[ %d ] - %s\n", tipoPedido.ordinal() + 1, tipoPedido.getDescricao());
-        }
-
-        System.out.print("Primeiramente, escolga o tipo de atendimento que deseja: ");
-
         int opcao = Utils.checkScannerInputForInteger("Escoha o tipo de atendimento baseado nas opções acima: ");
 
         switch (Math.abs(opcao)) {
@@ -39,7 +32,7 @@ public class Pedido {
             case 3:
                 return EnumTipoPedido.BALCAO;
             default:
-                System.out.println("Desculpe, não foi possível definir o tipo de pedido informado. Tente novamente!");
+                System.out.print("Desculpe, não foi possível definir o tipo de pedido informado. Tente novamente: ");
                 return getTipoPedidoFromUser();
         }
     }
@@ -49,9 +42,35 @@ public class Pedido {
     }
 
     public static void realizarPedido(Atendimento atendimento, EnumTipoPedido tipoPedido) {
-        // debug
-        // Mapper.writeValueAsString(atendimento);
-        System.out.println("Realizando o pedido...");
+        // debug -> Mapper.writeValueAsString(atendimento);
+        Menu menu = new Menu();
+
+        int opcao = Utils.checkScannerInputForInteger("Por favor, escolha uma opção válida: ");
+
+        switch (Math.abs(opcao)) {
+            case 1:
+                System.out.println("\n");
+                System.out.println("-=-=-=-=-=-=-=-=- PIZZAS SALGADAS -=-=-=-=-=-=-=-=-");
+                menu.listarPizzasSalgadas();
+                break;
+            case 2:
+                System.out.println("\n");
+                System.out.println("-=-=-=-=-=-=-=-=- PIZZAS DOCES -=-=-=-=-=-=-=-=-");
+                menu.listarPizzasDoces();
+                break;
+            case 3:
+                System.out.println("\n");
+                System.out.println("-=-=-=-=-=-=-=-=- BEBIDAS -=-=-=-=-=-=-=-=-");
+                menu.listarBebidas();
+                break;
+            default:
+                System.out.print("Por favor, escolha uma opção válida: ");
+                realizarPedido(atendimento, tipoPedido);
+        }
+    }
+
+    public static void escolherOpcoes() {
+
     }
 
     public int getNumero() {

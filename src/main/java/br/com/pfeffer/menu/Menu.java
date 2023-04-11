@@ -1,6 +1,8 @@
 package br.com.pfeffer.menu;
 
+import br.com.pfeffer.atendimento.Mensagem;
 import br.com.pfeffer.menu.enums.EnumTipoSabor;
+import br.com.pfeffer.pedido.Pedido;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,11 +35,15 @@ public class Menu {
     }
 
     public void listarPizzas(EnumTipoSabor tipoSabor) {
+        int itemId = 1;
         for (ItemMenu item : itens) {
             if (item.getSaborPizza() != null && item.getSaborPizza().getTipoSabor() == tipoSabor) {
-                System.out.printf("%s - %s\n", item.getSaborPizza().getNome(), item.getSaborPizza().getDescricao());
+                System.out.printf("[ %2d ] %s - %s\n", itemId, item.getSaborPizza().getNome(), item.getSaborPizza().getDescricao());
+                itemId++;
             }
         }
+
+        Mensagem.opcoesMenu();
     }
 
     public void listarBebidas() {

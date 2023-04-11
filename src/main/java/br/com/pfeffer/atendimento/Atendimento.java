@@ -33,6 +33,7 @@ public class Atendimento {
                 Atendimento.continuarAtendimento(tipoPedido);
                 break;
             case LA_CARTE:
+                Mensagem.listarOpcoesMenu();
                 Pedido.realizarPedido(tipoPedido);
                 break;
         }
@@ -70,6 +71,7 @@ public class Atendimento {
 
         Atendimento atendimento = new Atendimento(cliente, EnumStatusAtendimento.ANDAMENTO);
 
+        Mensagem.listarOpcoesMenu();
         Pedido.realizarPedido(atendimento, tipoPedido);
     }
 
