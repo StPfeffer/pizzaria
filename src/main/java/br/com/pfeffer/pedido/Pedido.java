@@ -69,10 +69,6 @@ public class Pedido {
         }
     }
 
-    public static void escolherOpcoes() {
-
-    }
-
     public int getNumero() {
         return numero;
     }

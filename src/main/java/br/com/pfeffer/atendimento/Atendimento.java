@@ -3,6 +3,7 @@ package br.com.pfeffer.atendimento;
 import br.com.pfeffer.atendimento.enums.EnumStatusAtendimento;
 import br.com.pfeffer.cliente.Cliente;
 import br.com.pfeffer.cliente.Endereco;
+import br.com.pfeffer.cliente.EnderecoImpl;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.pedido.Pedido;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
@@ -50,21 +51,7 @@ public class Atendimento {
         String telefone = Utils.onlyNumbers(scanner.nextLine());
 
         if (tipoPedido == EnumTipoPedido.ENTREGA) {
-            System.out.print("Insira o nome da rua/avenida: ");
-            String logradouro = scanner.nextLine();
-
-            System.out.print("Insira o número: ");
-            int numero = Utils.checkScannerInputForInteger("Por favor, informe um número: ");
-
-            System.out.print("(Opcional) Complemento: ");
-            String complemento = scanner.nextLine().trim();
-            complemento = complemento.isEmpty() ? null : complemento;
-
-            System.out.print("(Opcional) Bairro: ");
-            String bairro = scanner.nextLine().trim();
-            bairro = bairro.isEmpty() ? null : bairro;
-
-            endereco = new Endereco(logradouro, numero, complemento, bairro);
+            endereco = EnderecoImpl.criarNovoEndereco();
         }
 
         Cliente cliente = new Cliente(nome, telefone, endereco);
