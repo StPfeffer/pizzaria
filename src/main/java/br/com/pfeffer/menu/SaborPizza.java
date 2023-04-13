@@ -16,7 +16,7 @@ public class SaborPizza {
     public SaborPizza() {
         this.sabores = new ArrayList<>();
 
-        this.sabores.addAll(Sabores.getAllSabores());
+        this.sabores.addAll(Sabores.getTodosSabores());
     }
 
     public SaborPizza(String nome, String descricao, float preco, EnumTipoSabor tipoSabor) {
@@ -71,6 +71,6 @@ public class SaborPizza {
     }
 
     public void addSabores() {
-        this.sabores.addAll(Sabores.getAllSabores());
+        this.sabores.addAll(Sabores.getTodosSabores());
     }
 }

@@ -6,7 +6,6 @@ import br.com.pfeffer.menu.Menu;
 import br.com.pfeffer.pedido.enums.EnumStatusPedido;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
 import br.com.pfeffer.reserva.Mesa;
-import br.com.pfeffer.core.utils.Mapper;
 
 public class Pedido {
     private int numero;
@@ -21,7 +20,7 @@ public class Pedido {
         this.statusPedido = EnumStatusPedido.EM_PREPARACAO;
     }
 
-    public static EnumTipoPedido getTipoPedidoFromUser() {
+    public static EnumTipoPedido getTipoPedidoUsuario() {
         int opcao = Utils.checkScannerInputForInteger("Escoha o tipo de atendimento baseado nas opções acima: ");
 
         switch (Math.abs(opcao)) {
@@ -33,7 +32,7 @@ public class Pedido {
                 return EnumTipoPedido.BALCAO;
             default:
                 System.out.print("Desculpe, não foi possível definir o tipo de pedido informado. Tente novamente: ");
-                return getTipoPedidoFromUser();
+                return getTipoPedidoUsuario();
         }
     }
 
@@ -42,26 +41,26 @@ public class Pedido {
     }
 
     public static void realizarPedido(Atendimento atendimento, EnumTipoPedido tipoPedido) {
+        int opcao = Utils.checkScannerInputForInteger("Por favor, escolha uma opção válida: ");
+
         // debug -> Mapper.writeValueAsString(atendimento);
         Menu menu = new Menu();
-
-        int opcao = Utils.checkScannerInputForInteger("Por favor, escolha uma opção válida: ");
 
         switch (Math.abs(opcao)) {
             case 1:
                 System.out.println("\n");
                 System.out.println("-=-=-=-=-=-=-=-=- PIZZAS SALGADAS -=-=-=-=-=-=-=-=-");
-                menu.listarPizzasSalgadas();
+                menu.listarPizzasSalgadas(atendimento, tipoPedido);
                 break;
             case 2:
                 System.out.println("\n");
                 System.out.println("-=-=-=-=-=-=-=-=- PIZZAS DOCES -=-=-=-=-=-=-=-=-");
-                menu.listarPizzasDoces();
+                menu.listarPizzasDoces(atendimento, tipoPedido);
                 break;
             case 3:
                 System.out.println("\n");
                 System.out.println("-=-=-=-=-=-=-=-=- BEBIDAS -=-=-=-=-=-=-=-=-");
-                menu.listarBebidas();
+                menu.listarBebidas(atendimento, tipoPedido);
                 break;
             default:
                 System.out.print("Por favor, escolha uma opção válida: ");

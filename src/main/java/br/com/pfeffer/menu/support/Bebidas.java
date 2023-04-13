@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Bebidas {
-    public static List<Bebida> getAllBebidas() {
+    public static List<Bebida> getTodasBebidas() {
         Bebida refrigeranteLata = new Bebida("Refrigerante em lata (350ml)", "Coca-Cola, Pepsi, Guaraná Antarctica, Sprite e Fanta", 5f, 35);
         Bebida sucoLaranja = new Bebida("Suco de Laranja Natural (300ml)", "Suco de laranja natural feito na hora, sem adição de açúcar", 6f, 14);
         Bebida refrigerante = new Bebida("Refrigerante (2l)", "Coca-Cola, Guaraná Antarctica, Sprite e Fanta", 11f, 18);

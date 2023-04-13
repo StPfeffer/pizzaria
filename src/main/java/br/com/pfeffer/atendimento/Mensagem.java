@@ -1,6 +1,8 @@
 package br.com.pfeffer.atendimento;
 
 import br.com.pfeffer.menu.Menu;
+import br.com.pfeffer.menu.Pizza;
+import br.com.pfeffer.menu.enums.EnumTamanhoPizza;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
 
 public class Mensagem {
@@ -23,10 +25,23 @@ public class Mensagem {
         System.out.print("Escolha a opção que deseja ver: ");
     }
 
-    public static void opcoesMenu() {
-        System.out.println("\n[  0 ] - Voltar para as opções do menu");
-        System.out.print("Escolha um sabor: ");
+    public static void listarTamanhosPizzas() {
+        for (EnumTamanhoPizza tamanhoPizza : EnumTamanhoPizza.values()) {
+            System.out.printf("[ %d ] - %s\n", tamanhoPizza.ordinal() + 1, tamanhoPizza.getDescricao());
+        }
 
-        Menu.escolherOpcoes();
+        System.out.println("\n[ 0 ] - Voltar para as opções do menu");
+        System.out.print("Escolha uma opcão: ");
+    }
+
+    public static void opcoesMenu(Atendimento atendimento, EnumTipoPedido tipoPedido) {
+        opcoesMenu(atendimento, tipoPedido, null);
+    }
+
+    public static void opcoesMenu(Atendimento atendimento, EnumTipoPedido tipoPedido, EnumTamanhoPizza tamanhoPizza) {
+        System.out.println("\n[ 0 ] - Voltar para as opções do menu");
+        System.out.print("Escolha uma opcão: ");
+
+        Menu.escolherOpcoes(atendimento, tipoPedido, true, tamanhoPizza);
     }
 }

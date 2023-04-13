@@ -3,7 +3,6 @@ package br.com.pfeffer.atendimento;
 import br.com.pfeffer.atendimento.enums.EnumStatusAtendimento;
 import br.com.pfeffer.cliente.Cliente;
 import br.com.pfeffer.cliente.Endereco;
-import br.com.pfeffer.cliente.EnderecoImpl;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.pedido.Pedido;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
@@ -26,7 +25,7 @@ public class Atendimento {
     }
 
     public static void iniciarAtendimento() {
-        EnumTipoPedido tipoPedido = Pedido.getTipoPedidoFromUser();
+        EnumTipoPedido tipoPedido = Pedido.getTipoPedidoUsuario();
 
         switch (tipoPedido) {
             case ENTREGA:
@@ -51,7 +50,13 @@ public class Atendimento {
         String telefone = Utils.onlyNumbers(scanner.nextLine());
 
         if (tipoPedido == EnumTipoPedido.ENTREGA) {
-            endereco = EnderecoImpl.criarNovoEndereco();
+            endereco = Endereco.criarNovoEndereco();
+        }
+
+        boolean validacao = Cliente.validarCliente();
+
+        if (validacao) {
+            continuarAtendimento(tipoPedido);
         }
 
         Cliente cliente = new Cliente(nome, telefone, endereco);

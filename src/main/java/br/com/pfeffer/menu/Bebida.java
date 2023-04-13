@@ -18,7 +18,7 @@ public class Bebida {
     public Bebida() {
         this.bebidas = new ArrayList<>();
 
-        this.bebidas.addAll(Bebidas.getAllBebidas());
+        this.bebidas.addAll(Bebidas.getTodasBebidas());
     }
 
     public Bebida(String nome, String descricao, float valor, int saldo) {
@@ -78,6 +78,6 @@ public class Bebida {
     }
 
     public void addBebidas() {
-        this.bebidas.addAll(Bebidas.getAllBebidas());
+        this.bebidas.addAll(Bebidas.getTodasBebidas());
     }
 }

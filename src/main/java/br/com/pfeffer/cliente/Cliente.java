@@ -4,6 +4,7 @@ import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.pedido.Pedido;
 
 import java.util.List;
+import java.util.Scanner;
 
 public class Cliente {
     private final int id;
@@ -17,6 +18,20 @@ public class Cliente {
         this.nome = nome;
         this.telefone = telefone;
         this.endereco = endereco;
+    }
+
+    public static boolean validarCliente() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Deseja alterar as informações? [S / N]: ");
+
+        char opcao = scanner.nextLine().trim().toUpperCase().charAt(0);
+
+        if (opcao == 'S') {
+            return true;
+        }
+
+        return false;
     }
 
     public int getId() {

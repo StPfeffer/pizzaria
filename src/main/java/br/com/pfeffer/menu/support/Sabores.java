@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Sabores {
-    public static List<SaborPizza> getAllSabores() {
+    public static List<SaborPizza> getTodosSabores() {
         SaborPizza margherita = new SaborPizza("Margherita", "Molho de tomate, queijo mussarela, manjericão fresco e azeite de oliva", 25f, EnumTipoSabor.SALGADA);
         SaborPizza portuguesa = new SaborPizza("Portuguesa ", "Molho de tomate, queijo mussarela, presunto, ovos, cebola, azeitonas e pimentão", 35.0f, EnumTipoSabor.SALGADA);
         SaborPizza calabresa = new SaborPizza("Calabresa", "Molho de tomate, queijo mussarela, linguiça calabresa fatiada, cebola e azeitonas", 30.0f, EnumTipoSabor.SALGADA);
