@@ -90,11 +90,13 @@ public class Pizza {
     }
 
     public static float calcularValorTotal(Pedido pedido) {
-        final float[] precoPizza = {0f};
+        final float[] precoPizza = { 0f };
 
         pedido.getItemPedido().forEach(itemPedido -> {
             itemPedido.getPizza().getSabores().forEach(saborPizza -> {
-                precoPizza[0] += saborPizza.getPreco() / (itemPedido.getPizza().getSabores().size());
+                precoPizza[0] += ((saborPizza.getPreco() / itemPedido.getPizza().getTamanho().getFatias())
+                        * (itemPedido.getPizza().getTamanho().getFatias() / 4))
+                        / itemPedido.getPizza().getSabores().size();
             });
         });
 

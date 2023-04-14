@@ -101,7 +101,9 @@ public class Pedido {
         }
 
         EnumMetodoPagamento metodoPagamento = Pagamento.escolherMetodoPagamento();
-        float preco = Pagamento.calcularValor(pedido);
+        float preco = Pagamento.calcularValor(pedido, metodoPagamento);
+
+        System.out.println(preco);
     }
 
     public int getNumero() {
