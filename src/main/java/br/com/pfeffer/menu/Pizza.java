@@ -4,6 +4,7 @@ import br.com.pfeffer.atendimento.Mensagem;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.menu.enums.EnumTamanhoPizza;
 import br.com.pfeffer.menu.enums.EnumTipoSabor;
+import br.com.pfeffer.pedido.ItemPedido;
 import br.com.pfeffer.pedido.Pedido;
 
 import java.util.ArrayList;
@@ -90,6 +91,25 @@ public class Pizza {
     }
 
     public static float calcularValorTotal(Pedido pedido) {
+        /*
+        float precoPizza = 0f;
+        for (ItemPedido itemPedido : pedido.getItemPedido()) {
+            Pizza pizza = itemPedido.getPizza();
+            int fatiasPorSabor = pizza.getTamanho().getFatias() / 4;
+            int numSabores = pizza.getSabores().size();
+            float precoPorSabor = 0f;
+
+
+            // precoPorSabor = pizza.getSabores().stream().mapToFloat(saborPizza -> saborPizza.getPreco() / pizza.getTamanho().getFatias()).sum();
+            for (SaborPizza saborPizza : pizza.getSabores()) {
+                precoPorSabor += saborPizza.getPreco() / pizza.getTamanho().getFatias();
+            }
+            
+            float precoPorPizza = precoPorSabor * fatiasPorSabor;
+            precoPizza += precoPorPizza / numSabores;
+        }
+        */
+
         final float[] precoPizza = { 0f };
 
         pedido.getItemPedido().forEach(itemPedido -> {
