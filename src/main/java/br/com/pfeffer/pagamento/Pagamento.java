@@ -19,6 +19,10 @@ public class Pagamento {
     private EnumMetodoPagamento metodoPagamento;
     private EnumStatusPagamento statusPagamento;
 
+    public Pagamento() {
+        new Pagamento(0, null, cliente, pedido, null, null, null);
+    }
+
     public Pagamento(float valorTotal, Date dataPagamento, Cliente cliente, Pedido pedido, Cupom cupom, EnumMetodoPagamento metodoPagamento, EnumStatusPagamento statusPagamento) {
         this.valorTotal = valorTotal;
         this.dataPagamento = dataPagamento;
@@ -36,17 +40,15 @@ public class Pagamento {
         return EnumMetodoPagamento.values()[opcao - 1];
     }
 
-    // TODO: Desconto/acrescimo/parcelo dependendo do metodoPagamento
-    public static float calcularValor(Pedido pedido, EnumMetodoPagamento metodoPagamento) {
-        System.out.println(pedido.getItemPedido());
+    // TODO: Desconto/acréscimo/parcela dependendo do metodoPagamento
+    public static float calcularValor(Pagamento pagamento) {
+        final float[] valor = {pagamento.getPedido().getValorPedido()}; // gambiarra
 
-        final float[] valor = {pedido.getValorPedido()}; // gambiarra
-
-        pedido.getItemPedido().forEach(itemPedido -> {
+        pagamento.getPedido().getItemPedido().forEach(itemPedido -> {
             if (itemPedido.getBebida() != null) {
                 valor[0] += itemPedido.getBebida().getValor();
             } else if (itemPedido.getPizza() != null) {
-                valor[0] += Pizza.calcularValorTotal(pedido);
+                valor[0] += Pizza.calcularValorTotal(pagamento.getPedido());
             }
         });
 
