@@ -104,7 +104,7 @@ public class Pizza {
             for (SaborPizza saborPizza : pizza.getSabores()) {
                 precoPorSabor += saborPizza.getPreco() / pizza.getTamanho().getFatias();
             }
-            
+
             float precoPorPizza = precoPorSabor * fatiasPorSabor;
             precoPizza += precoPorPizza / numSabores;
         }
