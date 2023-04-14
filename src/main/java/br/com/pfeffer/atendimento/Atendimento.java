@@ -104,6 +104,11 @@ public class Atendimento {
     }
 
     public void setStatusAtendimento(EnumStatusAtendimento statusAtendimento) {
+        if (statusAtendimento == EnumStatusAtendimento.FINALIZADO
+                || statusAtendimento == EnumStatusAtendimento.CANCELADO) {
+            this.setDhFinalAtendimento(new Date());
+        }
+
         this.statusAtendimento = statusAtendimento;
     }
 }
