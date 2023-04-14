@@ -98,17 +98,17 @@ public class Menu {
                 break;
             case 1:
                 System.out.println("\n");
-                System.out.println("-=-=-=-=-=-=-=-=- PIZZAS SALGADAS -=-=-=-=-=-=-=-=-");
+                Utils.showHeader("pizzas salgadas");
                 menu.listarPizzasSalgadas(pedido);
                 break;
             case 2:
                 System.out.println("\n");
-                System.out.println("-=-=-=-=-=-=-=-=- PIZZAS DOCES -=-=-=-=-=-=-=-=-");
+                Utils.showHeader("pizzas doces");
                 menu.listarPizzasDoces(pedido);
                 break;
             case 3:
                 System.out.println("\n");
-                System.out.println("-=-=-=-=-=-=-=-=- BEBIDAS -=-=-=-=-=-=-=-=-");
+                Utils.showHeader("bebidas");
                 menu.listarBebidas(pedido);
                 break;
             default:
@@ -129,7 +129,7 @@ public class Menu {
 
                 pedido.addItemPedido(new ItemPedido(bebida));
             } else {
-                Pizza pizza = Pizza.montarPizza(opcao, pedido, tamanhoPizza);
+                Pizza pizza = Pizza.montarPizza(opcao, tamanhoPizza);
 
                 pedido.addItemPedido(new ItemPedido(pizza));
             }

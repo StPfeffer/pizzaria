@@ -3,15 +3,15 @@ package br.com.pfeffer.cliente;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.pedido.Pedido;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Cliente {
     private final int id;
     private String nome;
     private String telefone;
     private Endereco endereco;
-    private List<Pedido> pedidos;
+    private List<Pedido> pedidos = new ArrayList<>();
 
     public Cliente(String nome, String telefone, Endereco endereco) {
         this.id = Utils.randomInteger(true);
@@ -23,7 +23,7 @@ public class Cliente {
     public static boolean validarCliente() {
         System.out.print("Deseja alterar as informações? [S / N]: ");
 
-        return Utils.getSimNao();
+        return Utils.getYesOrNo();
     }
 
     public int getId() {

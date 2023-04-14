@@ -5,6 +5,7 @@ import br.com.pfeffer.menu.Menu;
 import br.com.pfeffer.menu.Pizza;
 import br.com.pfeffer.menu.enums.EnumTamanhoPizza;
 import br.com.pfeffer.menu.enums.EnumTipoSabor;
+import br.com.pfeffer.pagamento.enums.EnumMetodoPagamento;
 import br.com.pfeffer.pedido.Pedido;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
 
@@ -21,7 +22,7 @@ public class Mensagem {
 
     public static void listarOpcoesMenu() {
         System.out.println("\n");
-        System.out.println("-=-=-=-=-=-=-=-=- MENU -=-=-=-=-=-=-=-=-");
+        Utils.showHeader("menu");
         System.out.println("[ 1 ] - Ver Pizzas Salgadas");
         System.out.println("[ 2 ] - Ver Pizzas Doces");
         System.out.println("[ 3 ] - Ver Bebidas");
@@ -30,7 +31,7 @@ public class Mensagem {
 
     public static void listarOpcoesPizzas() {
         System.out.println("\n");
-        System.out.println("-=-=-=-=-=-=-=-=- MENU -=-=-=-=-=-=-=-=-");
+        Utils.showHeader("menu");
         System.out.println("[ 1 ] - Ver Pizzas Salgadas");
         System.out.println("[ 2 ] - Ver Pizzas Doces");
         System.out.print("Escolha a opção que deseja ver: ");
@@ -66,12 +67,23 @@ public class Mensagem {
     public static boolean adicionarSabor() {
         System.out.print("Deseja adicionar outro sabor? [S/ N]: ");
 
-        return Utils.getSimNao();
+        return Utils.getYesOrNo();
     }
 
     public static boolean adicionarBebida() {
         System.out.print("Deseja adicionar uma bebida? [S/ N]: ");
 
-        return Utils.getSimNao();
+        return Utils.getYesOrNo();
+    }
+
+    public static void listarMetodosPagamento() {
+        System.out.println("\n");
+        Utils.showHeader("pagamento");
+
+        for (EnumMetodoPagamento metodoPagamento : EnumMetodoPagamento.values()) {
+            System.out.printf("[ %d ] - %s\n", metodoPagamento.ordinal() + 1, metodoPagamento.getDescricao());
+        }
+
+        System.out.print("Escolha o método de pagamento: ");
     }
 }

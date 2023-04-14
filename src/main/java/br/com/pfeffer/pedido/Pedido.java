@@ -2,9 +2,11 @@ package br.com.pfeffer.pedido;
 
 import br.com.pfeffer.atendimento.Atendimento;
 import br.com.pfeffer.atendimento.enums.EnumStatusAtendimento;
-import br.com.pfeffer.core.utils.Mapper;
+import br.com.pfeffer.cliente.Cliente;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.menu.Menu;
+import br.com.pfeffer.pagamento.Pagamento;
+import br.com.pfeffer.pagamento.enums.EnumMetodoPagamento;
 import br.com.pfeffer.pedido.enums.EnumStatusPedido;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
 
@@ -18,6 +20,7 @@ public class Pedido {
     private EnumStatusPedido statusPedido;
     private Atendimento atendimento;
     private List<ItemPedido> itemPedido = new ArrayList<>();
+    private float valorPedido;
 
     public Pedido() {
     }
@@ -67,17 +70,17 @@ public class Pedido {
         switch (Math.abs(opcao)) {
             case 1:
                 System.out.println("\n");
-                System.out.println("-=-=-=-=-=-=-=-=- PIZZAS SALGADAS -=-=-=-=-=-=-=-=-");
+                Utils.showHeader("pizzas salgadas");
                 menu.listarPizzasSalgadas(pedido);
                 break;
             case 2:
                 System.out.println("\n");
-                System.out.println("-=-=-=-=-=-=-=-=- PIZZAS DOCES -=-=-=-=-=-=-=-=-");
+                Utils.showHeader("pizzas doces");
                 menu.listarPizzasDoces(pedido);
                 break;
             case 3:
                 System.out.println("\n");
-                System.out.println("-=-=-=-=-=-=-=-=- BEBIDAS -=-=-=-=-=-=-=-=-");
+                Utils.showHeader("bebidas");
                 menu.listarBebidas(pedido);
                 break;
             default:
@@ -91,9 +94,14 @@ public class Pedido {
         pedido.getAtendimento().setStatusAtendimento(EnumStatusAtendimento.FINALIZADO);
         pedido.setStatusPedido(EnumStatusPedido.CONCLUIDO);
 
-        // Mapper.writeValueAsString(pedido);
+        Cliente cliente = pedido.getAtendimento().getCliente();
 
-        System.out.println(pedido);
+        if (cliente != null) {
+            cliente.addPedido(pedido);
+        }
+
+        EnumMetodoPagamento metodoPagamento = Pagamento.escolherMetodoPagamento();
+        float preco = Pagamento.calcularValor(pedido);
     }
 
     public int getNumero() {
@@ -138,5 +146,13 @@ public class Pedido {
 
     public void setItemPedido(List<ItemPedido> itemPedido) {
         this.itemPedido = itemPedido;
+    }
+
+    public float getValorPedido() {
+        return valorPedido;
+    }
+
+    public void setValorPedido(float valorPedido) {
+        this.valorPedido = valorPedido;
     }
 }

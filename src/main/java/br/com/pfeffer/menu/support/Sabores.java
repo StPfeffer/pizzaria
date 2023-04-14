@@ -9,12 +9,12 @@ import java.util.List;
 public class Sabores {
     public static List<SaborPizza> getTodosSabores() {
         SaborPizza margherita = new SaborPizza("Margherita", "Molho de tomate, queijo mussarela, manjericão fresco e azeite de oliva", 25f, EnumTipoSabor.SALGADA);
-        SaborPizza portuguesa = new SaborPizza("Portuguesa ", "Molho de tomate, queijo mussarela, presunto, ovos, cebola, azeitonas e pimentão", 35.0f, EnumTipoSabor.SALGADA);
-        SaborPizza calabresa = new SaborPizza("Calabresa", "Molho de tomate, queijo mussarela, linguiça calabresa fatiada, cebola e azeitonas", 30.0f, EnumTipoSabor.SALGADA);
-        SaborPizza pepperoni = new SaborPizza("Pepperoni ", "Molho de tomate, queijo mussarela, pepperoni (salame tipo americano) e azeitonas", 32.0f, EnumTipoSabor.SALGADA);
-        SaborPizza vegetariana = new SaborPizza("Vegetariana", "Molho de tomate, queijo mussarela, tomate, cebola, pimentão, milho, cogumelos, azeitonas e brócolis", 30.0f, EnumTipoSabor.SALGADA);
-        SaborPizza baiana = new SaborPizza("Baiana", "Molho de tomate, queijo mussarela, carne moída temperada com especiarias, pimenta dedo-de-moça, cebola e azeitonas", 40.0f, EnumTipoSabor.SALGADA);
-        SaborPizza quatroQueijos = new SaborPizza("Quatro Queijos", "Molho de tomate, queijo mussarela, queijo gorgonzola, queijo provolone e queijo parmesão ralado", 35.0f, EnumTipoSabor.SALGADA);
+        SaborPizza portuguesa = new SaborPizza("Portuguesa ", "Molho de tomate, queijo mussarela, presunto, ovos, cebola, azeitonas e pimentão", 35f, EnumTipoSabor.SALGADA);
+        SaborPizza calabresa = new SaborPizza("Calabresa", "Molho de tomate, queijo mussarela, linguiça calabresa fatiada, cebola e azeitonas", 30f, EnumTipoSabor.SALGADA);
+        SaborPizza pepperoni = new SaborPizza("Pepperoni ", "Molho de tomate, queijo mussarela, pepperoni (salame tipo americano) e azeitonas", 32f, EnumTipoSabor.SALGADA);
+        SaborPizza vegetariana = new SaborPizza("Vegetariana", "Molho de tomate, queijo mussarela, tomate, cebola, pimentão, milho, cogumelos, azeitonas e brócolis", 30f, EnumTipoSabor.SALGADA);
+        SaborPizza baiana = new SaborPizza("Baiana", "Molho de tomate, queijo mussarela, carne moída temperada com especiarias, pimenta dedo-de-moça, cebola e azeitonas", 40f, EnumTipoSabor.SALGADA);
+        SaborPizza quatroQueijos = new SaborPizza("Quatro Queijos", "Molho de tomate, queijo mussarela, queijo gorgonzola, queijo provolone e queijo parmesão ralado", 35f, EnumTipoSabor.SALGADA);
         SaborPizza toscana = new SaborPizza("Toscana", "Molho de tomate, queijo mussarela, linguiça toscana, cebola, azeitonas e orégano", 35f, EnumTipoSabor.SALGADA);
         SaborPizza mexicana = new SaborPizza("Mexicana", "Molho de tomate, queijo mussarela, carne moída temperada, pimenta jalapeño, pimentão, cebola e azeitonas", 40f, EnumTipoSabor.SALGADA);
         SaborPizza frangoCatupiry = new SaborPizza("Frango com Catupiry", "Molho de tomate, queijo mussarela, frango desfiado, catupiry, milho, azeitonas e orégano", 32f, EnumTipoSabor.SALGADA);

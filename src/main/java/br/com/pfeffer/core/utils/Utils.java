@@ -16,12 +16,16 @@ public class Utils {
         return new Random().nextInt();
     }
 
-    public static boolean getSimNao() {
+    public static boolean getYesOrNo() {
         Scanner scanner = new Scanner(System.in);
 
         char opcao = scanner.nextLine().trim().toUpperCase().charAt(0);
 
         return opcao == 'S';
+    }
+
+    public static void showHeader(String title) {
+        System.out.printf("-=-=-=-=-=-=-=-=- %s -=-=-=-=-=-=-=-=-\n", title.toUpperCase());
     }
 
     public static int checkScannerInputForInteger(String mensagem) {

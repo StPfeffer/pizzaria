@@ -1,6 +1,5 @@
 package br.com.pfeffer.menu;
 
-import br.com.pfeffer.atendimento.Atendimento;
 import br.com.pfeffer.atendimento.Mensagem;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.menu.enums.EnumTamanhoPizza;
@@ -37,7 +36,7 @@ public class Pizza {
         return EnumTamanhoPizza.values()[opcao - 1];
     }
 
-    public static Pizza montarPizza(int opcao, Pedido pedido, EnumTamanhoPizza tamanho) {
+    public static Pizza montarPizza(int opcao, EnumTamanhoPizza tamanho) {
         Pizza pizza = new Pizza();
         pizza.setTamanho(tamanho);
 
@@ -66,12 +65,12 @@ public class Pizza {
         switch (opcao) {
             case 1:
                 System.out.println("\n");
-                System.out.println("-=-=-=-=-=-=-=-=- PIZZAS SALGADAS -=-=-=-=-=-=-=-=-");
+                Utils.showHeader("pizzas salgadas");
                 Menu.listarPizzasSalgadas(pizza);
                 break;
             case 2:
                 System.out.println("\n");
-                System.out.println("-=-=-=-=-=-=-=-=- PIZZAS DOCES -=-=-=-=-=-=-=-=-");
+                Utils.showHeader("pizzas doces");
                 Menu.listarPizzasDoces(pizza);
                 break;
             default:
@@ -88,6 +87,18 @@ public class Pizza {
         }
 
         pizza.addSabor(saborPizza.getSabores().get(opcao - 1));
+    }
+
+    public static float calcularValorTotal(Pedido pedido) {
+        final float[] precoPizza = {0f};
+
+        pedido.getItemPedido().forEach(itemPedido -> {
+            itemPedido.getPizza().getSabores().forEach(saborPizza -> {
+                precoPizza[0] += saborPizza.getPreco() / (itemPedido.getPizza().getSabores().size());
+            });
+        });
+
+        return precoPizza[0];
     }
 
     public List<SaborPizza> getSabores() {

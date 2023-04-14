@@ -67,6 +67,10 @@ public class Atendimento {
         Pedido.realizarPedido(atendimento, tipoPedido);
     }
 
+    public static void finalizarAtendimento() {
+
+    }
+
     public int getNumero() {
         return numero;
     }
