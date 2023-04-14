@@ -6,7 +6,6 @@ import br.com.pfeffer.cliente.Cliente;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.menu.Menu;
 import br.com.pfeffer.pagamento.Pagamento;
-import br.com.pfeffer.pagamento.enums.EnumMetodoPagamento;
 import br.com.pfeffer.pedido.enums.EnumStatusPedido;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
 
@@ -97,13 +96,16 @@ public class Pedido {
         Cliente cliente = pedido.getAtendimento().getCliente();
 
         if (cliente != null) {
-            cliente.addPedido(pedido);
+            cliente.addPedido(pedido.getNumero());
         }
 
-        EnumMetodoPagamento metodoPagamento = Pagamento.escolherMetodoPagamento();
-        float preco = Pagamento.calcularValor(pedido, metodoPagamento);
-        
-        System.out.println(preco)
+        Pagamento pagamento = new Pagamento();
+
+        pagamento.setPedido(pedido);
+        pagamento.setMetodoPagamento(Pagamento.escolherMetodoPagamento());
+        pagamento.setValorTotal(Pagamento.calcularValor(pagamento));
+
+        System.out.println(pagamento.getValorTotal());
     }
 
     public int getNumero() {
