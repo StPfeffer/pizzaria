@@ -2,6 +2,7 @@ package br.com.pfeffer.menu;
 
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.menu.support.Bebidas;
+import br.com.pfeffer.pedido.Pedido;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +28,16 @@ public class Bebida {
         this.sku = Utils.randomInteger(true);
         this.valor = valor;
         this.saldo = saldo;
+    }
+
+    public static Bebida adicionarBebida(int opcao, Pedido pedido) {
+        Bebida bebida = new Bebida();
+
+        return bebida.getBebidas().get(opcao - 1);
+    }
+
+    public static void adicionarBebida(Pizza pizza) {
+        // TODO: Implementar isso
     }
 
     public String getNome() {
