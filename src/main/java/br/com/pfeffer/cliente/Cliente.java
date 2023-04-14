@@ -11,7 +11,7 @@ public class Cliente {
     private String nome;
     private String telefone;
     private Endereco endereco;
-    private List<Pedido> pedidos = new ArrayList<>();
+    private List<Integer> pedidos = new ArrayList<>();
 
     public Cliente(String nome, String telefone, Endereco endereco) {
         this.id = Utils.randomInteger(true);
@@ -54,15 +54,15 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    public List<Pedido> getPedidos() {
+    public List<Integer> getPedidos() {
         return pedidos;
     }
 
-    public void addPedido(Pedido pedido) {
-        this.pedidos.add(pedido);
+    public void addPedido(int numeroPedido) {
+        this.pedidos.add(numeroPedido);
     }
 
-    public void setPedidos(List<Pedido> pedidos) {
+    public void setPedidos(List<Integer> pedidos) {
         this.pedidos = pedidos;
     }
 }
