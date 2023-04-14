@@ -13,6 +13,10 @@ public class Cupom {
         this.validade = validade;
     }
 
+    public static void aplicarCupom(Cupom cupom) {
+
+    }
+
     public String getCodigo() {
         return codigo;
     }
