@@ -21,17 +21,9 @@ public class Cliente {
     }
 
     public static boolean validarCliente() {
-        Scanner scanner = new Scanner(System.in);
-
         System.out.print("Deseja alterar as informações? [S / N]: ");
 
-        char opcao = scanner.nextLine().trim().toUpperCase().charAt(0);
-
-        if (opcao == 'S') {
-            return true;
-        }
-
-        return false;
+        return Utils.getSimNao();
     }
 
     public int getId() {
