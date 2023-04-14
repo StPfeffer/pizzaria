@@ -1,18 +1,26 @@
 package br.com.pfeffer.pedido;
 
 import br.com.pfeffer.atendimento.Atendimento;
+import br.com.pfeffer.atendimento.enums.EnumStatusAtendimento;
+import br.com.pfeffer.core.utils.Mapper;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.menu.Menu;
 import br.com.pfeffer.pedido.enums.EnumStatusPedido;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
-import br.com.pfeffer.reserva.Mesa;
 
+import java.util.ArrayList;
+import java.util.List;
+
+// TODO: Implementar a classe Mesa no Pedido
 public class Pedido {
     private int numero;
     private EnumTipoPedido tipoPedido;
     private EnumStatusPedido statusPedido;
     private Atendimento atendimento;
-    private Mesa mesa;
+    private List<ItemPedido> itemPedido = new ArrayList<>();
+
+    public Pedido() {
+    }
 
     public Pedido(EnumTipoPedido tipoPedido) {
         this.numero = Utils.randomInteger(true);
@@ -41,31 +49,51 @@ public class Pedido {
     }
 
     public static void realizarPedido(Atendimento atendimento, EnumTipoPedido tipoPedido) {
+        atendimento.setStatusAtendimento(EnumStatusAtendimento.ANDAMENTO);
+        realizarPedido(atendimento, new Pedido(tipoPedido));
+    }
+
+    public static void realizarPedido(Atendimento atendimento, Pedido pedido) {
+        pedido.setStatusPedido(EnumStatusPedido.EM_ANDAMENTO);
+
+        if (pedido.getAtendimento() == null) {
+            pedido.setAtendimento(atendimento);
+        }
+
         int opcao = Utils.checkScannerInputForInteger("Por favor, escolha uma opção válida: ");
 
-        // debug -> Mapper.writeValueAsString(atendimento);
         Menu menu = new Menu();
 
         switch (Math.abs(opcao)) {
             case 1:
                 System.out.println("\n");
                 System.out.println("-=-=-=-=-=-=-=-=- PIZZAS SALGADAS -=-=-=-=-=-=-=-=-");
-                menu.listarPizzasSalgadas(atendimento, tipoPedido);
+                menu.listarPizzasSalgadas(pedido);
                 break;
             case 2:
                 System.out.println("\n");
                 System.out.println("-=-=-=-=-=-=-=-=- PIZZAS DOCES -=-=-=-=-=-=-=-=-");
-                menu.listarPizzasDoces(atendimento, tipoPedido);
+                menu.listarPizzasDoces(pedido);
                 break;
             case 3:
                 System.out.println("\n");
                 System.out.println("-=-=-=-=-=-=-=-=- BEBIDAS -=-=-=-=-=-=-=-=-");
-                menu.listarBebidas(atendimento, tipoPedido);
+                menu.listarBebidas(pedido);
                 break;
             default:
                 System.out.print("Por favor, escolha uma opção válida: ");
-                realizarPedido(atendimento, tipoPedido);
+                realizarPedido(pedido.getAtendimento(), pedido.getTipoPedido());
+                break;
         }
+    }
+
+    public static void finalizarPedido(Pedido pedido) {
+        pedido.getAtendimento().setStatusAtendimento(EnumStatusAtendimento.FINALIZADO);
+        pedido.setStatusPedido(EnumStatusPedido.CONCLUIDO);
+
+        // Mapper.writeValueAsString(pedido);
+
+        System.out.println(pedido);
     }
 
     public int getNumero() {
@@ -100,11 +128,15 @@ public class Pedido {
         this.atendimento = atendimento;
     }
 
-    public Mesa getMesa() {
-        return mesa;
+    public void addItemPedido(ItemPedido itemPedido) {
+        this.itemPedido.add(itemPedido);
     }
 
-    public void setMesa(Mesa mesa) {
-        this.mesa = mesa;
+    public List<ItemPedido> getItemPedido() {
+        return itemPedido;
+    }
+
+    public void setItemPedido(List<ItemPedido> itemPedido) {
+        this.itemPedido = itemPedido;
     }
 }
