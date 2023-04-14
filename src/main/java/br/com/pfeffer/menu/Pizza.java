@@ -5,6 +5,7 @@ import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.menu.enums.EnumTamanhoPizza;
 import br.com.pfeffer.menu.enums.EnumTipoSabor;
 import br.com.pfeffer.pedido.Pedido;
+import br.com.pfeffer.pedido.ItemPedido;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 public class Pizza {
     private List<SaborPizza> sabores = new ArrayList<>();
     private EnumTamanhoPizza tamanho;
-    private float valorTotal;
+    private float valorPizza;
 
     public Pizza() {
     }
@@ -20,7 +21,7 @@ public class Pizza {
     public Pizza(List<SaborPizza> sabores, EnumTamanhoPizza tamanho, float valorTotal) {
         this.sabores = sabores;
         this.tamanho = tamanho;
-        this.valorTotal = valorTotal;
+        this.valorPizza = valorTotal;
     }
 
     public static EnumTamanhoPizza escolherTamanho(Pedido pedido) {
@@ -89,18 +90,26 @@ public class Pizza {
         pizza.addSabor(saborPizza.getSabores().get(opcao - 1));
     }
 
-    public static float calcularValorTotal(Pedido pedido) {
-        final float[] precoPizza = { 0f };
+    public static float calcularValorPizza(Pedido pedido) {
+        float precoPizza = 0f;
 
-        pedido.getItemPedido().forEach(itemPedido -> {
-            itemPedido.getPizza().getSabores().forEach(saborPizza -> {
-                precoPizza[0] += ((saborPizza.getPreco() / itemPedido.getPizza().getTamanho().getFatias())
-                        * (itemPedido.getPizza().getTamanho().getFatias() / 4))
-                        / itemPedido.getPizza().getSabores().size();
-            });
-        });
+        for (ItemPedido itemPedido : pedido.getItemPedido()) {
+            Pizza pizza = itemPedido.getPizza();
+            int fatiasPorSabor = pizza.getTamanho().getFatias();
+            int numSabores = pizza.getSabores().size();
+            float precoPorSabor = 0f;
 
-        return precoPizza[0];
+
+            // precoPorSabor = pizza.getSabores().stream().mapToFloat(saborPizza -> saborPizza.getPreco() / pizza.getTamanho().getFatias()).sum();
+            for (SaborPizza saborPizza : pizza.getSabores()) {
+                precoPorSabor += saborPizza.getPreco() / pizza.getTamanho().getFatias();
+            }
+            
+            float precoPorPizza = precoPorSabor * fatiasPorSabor;
+            precoPizza += precoPorPizza / numSabores;
+        }
+
+        return precoPizza + pedido.getItemPedido().get(0).getPizza().getTamanho().getAcrescimo();
     }
 
     public List<SaborPizza> getSabores() {
@@ -123,11 +132,11 @@ public class Pizza {
         this.tamanho = tamanho;
     }
 
-    public float getValorTotal() {
-        return valorTotal;
+    public float getValorPizza() {
+        return valorPizza;
     }
 
-    public void setValorTotal(float valorTotal) {
-        this.valorTotal = valorTotal;
+    public void setValorPizza(float valorPizza) {
+        this.valorPizza = valorPizza;
     }
 }
