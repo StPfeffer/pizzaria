@@ -36,7 +36,8 @@ public class Pagamento {
         return EnumMetodoPagamento.values()[opcao - 1];
     }
 
-    public static float calcularValor(Pedido pedido) {
+    // TODO: Desconto/acrescimo/parcelo dependendo do metodoPagamento
+    public static float calcularValor(Pedido pedido, EnumMetodoPagamento metodoPagamento) {
         System.out.println(pedido.getItemPedido());
 
         final float[] valor = {pedido.getValorPedido()}; // gambiarra
