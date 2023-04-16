@@ -50,6 +50,9 @@ public class Pizza {
                 Mensagem.listarOpcoesPizzas();
 
                 adicionarSabor(null, pizza, null);
+            } else if (Mensagem.adicionarBebida()) {
+                Mensagem.adicionarBebida();
+                break;
             } else {
                 break;
             }

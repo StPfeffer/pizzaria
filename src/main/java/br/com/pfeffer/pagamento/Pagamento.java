@@ -22,7 +22,7 @@ public class Pagamento {
     private EnumStatusPagamento statusPagamento;
 
     public Pagamento() {
-        new Pagamento(0, 0, 0, null, cliente, pedido, null, null, null);
+        new Pagamento(0, 0, 0, null, cliente, pedido, null, null, EnumStatusPagamento.AGUARDANDO_PAGAMENTO);
     }
 
     public Pagamento(float valorTotal, float valorDesconto, float valorFinal, Date dataPagamento, Cliente cliente, Pedido pedido, Cupom cupom, EnumMetodoPagamento metodoPagamento, EnumStatusPagamento statusPagamento) {
@@ -75,7 +75,9 @@ public class Pagamento {
 
         pagamento.setValorCheio(valor[0]);
         pagamento.setValorFinal(valor[0] - (valor[0] * desconto));
-        pagamento.setValorDesconto(pagamento.getValorCheio() - pagamento.getValorDesconto());
+        pagamento.setValorDesconto(pagamento.getValorCheio() - pagamento.getValorFinal());
+        pagamento.getPedido().setValorPedido(valor[0]);
+        pagamento.setCliente(pagamento.getPedido().getAtendimento().getCliente());
 
         return valor[0];
     }
