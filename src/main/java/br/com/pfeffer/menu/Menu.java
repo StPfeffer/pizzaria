@@ -48,7 +48,7 @@ public class Menu {
     public void listarPizzas(EnumTipoSabor tipoSabor, Pedido pedido) {
         EnumTamanhoPizza tamanhoPizza = Pizza.escolherTamanho(pedido);
 
-        System.out.println("\n");
+        Utils.jumpLine();
 
         int itemId = 1;
         for (ItemMenu item : itens) {
@@ -62,7 +62,7 @@ public class Menu {
     }
 
     public static void listarPizzas(EnumTipoSabor tipoSabor, Pizza pizza) {
-        System.out.println("\n");
+        Utils.jumpLine();
 
         int itemId = 1;
         for (ItemMenu item : itens) {
@@ -97,17 +97,17 @@ public class Menu {
                 escolherOpcoes(pedido);
                 break;
             case 1:
-                System.out.println("\n");
+                Utils.jumpLine();
                 Utils.showHeader("pizzas salgadas");
                 menu.listarPizzasSalgadas(pedido);
                 break;
             case 2:
-                System.out.println("\n");
+                Utils.jumpLine();
                 Utils.showHeader("pizzas doces");
                 menu.listarPizzasDoces(pedido);
                 break;
             case 3:
-                System.out.println("\n");
+                Utils.jumpLine();
                 Utils.showHeader("bebidas");
                 menu.listarBebidas(pedido);
                 break;

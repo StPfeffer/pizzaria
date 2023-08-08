@@ -2,7 +2,7 @@ package br.com.pfeffer.pedido.enums;
 
 import br.com.pfeffer.core.interfaces.IEnum;
 
-public enum EnumTipoPedido implements IEnum {
+public enum EnumTipoPedido implements IEnum<String> {
     LA_CARTE("LA_CARTE", "Pedido à la carte", 0.0f),
     ENTREGA("ENTREGA", "Pedido para Entrega", 4.0f),
     BALCAO("BALCAO", "Pedido no Balcão", 0.0f);

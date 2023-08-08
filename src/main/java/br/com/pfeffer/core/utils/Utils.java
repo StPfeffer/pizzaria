@@ -50,4 +50,9 @@ public class Utils {
 
         return input;
     }
+
+    public static void jumpLine() {
+        System.out.println("\n");
+    }
+
 }

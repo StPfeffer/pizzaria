@@ -2,7 +2,7 @@ package br.com.pfeffer.pagamento.enums;
 
 import br.com.pfeffer.core.interfaces.IEnum;
 
-public enum EnumStatusPagamento implements IEnum {
+public enum EnumStatusPagamento implements IEnum<String> {
     AGUARDANDO_PAGAMENTO("AGUARDANDO_PAGAMENTO", "Aguardando Pagamento"),
     PENDENTE("PENDENTE", "Pagamento Pendente"),
     CANCELADO("CANCELADO", "Pagamento Cancelado"),

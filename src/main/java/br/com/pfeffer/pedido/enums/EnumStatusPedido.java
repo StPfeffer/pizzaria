@@ -2,7 +2,7 @@ package br.com.pfeffer.pedido.enums;
 
 import br.com.pfeffer.core.interfaces.IEnum;
 
-public enum EnumStatusPedido implements IEnum {
+public enum EnumStatusPedido implements IEnum<String> {
     CANCELADO("CANCELADO", "Pedido Cancelado"),
     EM_PREPARACAO("EM_PREPARACAO", "Pedido em Preparação"),
     EM_ANDAMENTO("EM_ANDAMENTO", "Pedido em Andamento"),

@@ -68,12 +68,12 @@ public class Pizza {
 
         switch (opcao) {
             case 1:
-                System.out.println("\n");
+                Utils.jumpLine();
                 Utils.showHeader("pizzas salgadas");
                 Menu.listarPizzasSalgadas(pizza);
                 break;
             case 2:
-                System.out.println("\n");
+                Utils.jumpLine();
                 Utils.showHeader("pizzas doces");
                 Menu.listarPizzasDoces(pizza);
                 break;

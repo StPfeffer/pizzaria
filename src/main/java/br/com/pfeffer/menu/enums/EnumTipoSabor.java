@@ -2,7 +2,7 @@ package br.com.pfeffer.menu.enums;
 
 import br.com.pfeffer.core.interfaces.IEnum;
 
-public enum EnumTipoSabor implements IEnum {
+public enum EnumTipoSabor implements IEnum<String> {
     SALGADA("SALGADA", "Pizzas Salgadas"),
     DOCE("DOCE", "Pizzas Doces");
 

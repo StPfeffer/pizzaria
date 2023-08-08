@@ -68,17 +68,17 @@ public class Pedido {
 
         switch (Math.abs(opcao)) {
             case 1:
-                System.out.println("\n");
+                Utils.jumpLine();
                 Utils.showHeader("pizzas salgadas");
                 menu.listarPizzasSalgadas(pedido);
                 break;
             case 2:
-                System.out.println("\n");
+                Utils.jumpLine();
                 Utils.showHeader("pizzas doces");
                 menu.listarPizzasDoces(pedido);
                 break;
             case 3:
-                System.out.println("\n");
+                Utils.jumpLine();
                 Utils.showHeader("bebidas");
                 menu.listarBebidas(pedido);
                 break;

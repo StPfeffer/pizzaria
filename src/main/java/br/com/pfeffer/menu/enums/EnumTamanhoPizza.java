@@ -2,7 +2,7 @@ package br.com.pfeffer.menu.enums;
 
 import br.com.pfeffer.core.interfaces.IEnum;
 
-public enum EnumTamanhoPizza implements IEnum {
+public enum EnumTamanhoPizza implements IEnum<String> {
     PEQUENA("PEQUENA", "Pequena - 4 fatias (1 sabor)", 4, 0f),
     MEDIA("MEDIA", "Media - 8 fatias (até 2 sabores)", 8, 10f),
     GRANDE("GRANDE", "Grande - 12 fatias (até 3 sabores)", 12, 15f),

@@ -3,7 +3,6 @@ package br.com.pfeffer.atendimento;
 import br.com.pfeffer.atendimento.enums.EnumStatusAtendimento;
 import br.com.pfeffer.cliente.Cliente;
 import br.com.pfeffer.cliente.Endereco;
-import br.com.pfeffer.core.utils.Mapper;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.pagamento.Pagamento;
 import br.com.pfeffer.pedido.Pedido;

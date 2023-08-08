@@ -2,7 +2,7 @@ package br.com.pfeffer.atendimento.enums;
 
 import br.com.pfeffer.core.interfaces.IEnum;
 
-public enum EnumStatusAtendimento implements IEnum {
+public enum EnumStatusAtendimento implements IEnum<String> {
     AGUARDANDO("AGUARDANDO", "Aguardando Atendimento"),
     ANDAMENTO("ANDAMENTO", "Atendimento em Andamento"),
     CANCELADO("CANCELADO", "Atendimento Cancelado"),

@@ -2,7 +2,7 @@ package br.com.pfeffer.pagamento.enums;
 
 import br.com.pfeffer.core.interfaces.IEnum;
 
-public enum EnumMetodoPagamento implements IEnum {
+public enum EnumMetodoPagamento implements IEnum<String> {
     CARTAO_DEBITO("CARTAO_DEBITO", "Cartão de Débito"),
     CARTAO_CREDITO("CARTAO_CREDITO", "Cartão de Crédito"),
     PIX("PIX", "Pix");

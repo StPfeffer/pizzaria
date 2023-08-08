@@ -21,7 +21,7 @@ public class Mensagem {
     }
 
     public static void listarOpcoesMenu() {
-        System.out.println("\n");
+        Utils.jumpLine();
         Utils.showHeader("menu");
         System.out.println("[ 1 ] - Ver Pizzas Salgadas");
         System.out.println("[ 2 ] - Ver Pizzas Doces");
@@ -30,7 +30,7 @@ public class Mensagem {
     }
 
     public static void listarOpcoesPizzas() {
-        System.out.println("\n");
+        Utils.jumpLine();
         Utils.showHeader("menu");
         System.out.println("[ 1 ] - Ver Pizzas Salgadas");
         System.out.println("[ 2 ] - Ver Pizzas Doces");
@@ -42,7 +42,7 @@ public class Mensagem {
             System.out.printf("[ %d ] - %s\n", tamanhoPizza.ordinal() + 1, tamanhoPizza.getDescricao());
         }
 
-        System.out.println("\n[ 0 ] - Voltar para as opções do menu");
+        exibirOpcaoRetornar();
         System.out.print("Escolha uma opcão: ");
     }
 
@@ -51,14 +51,14 @@ public class Mensagem {
     }
 
     public static void opcoesMenu(Pedido pedido, EnumTamanhoPizza tamanhoPizza) {
-        System.out.println("\n[ 0 ] - Voltar para as opções do menu");
+        exibirOpcaoRetornar();
         System.out.print("Escolha uma opcão: ");
 
         Menu.escolherOpcoes(pedido, tamanhoPizza);
     }
 
     public static void opcoesMenu(EnumTipoSabor tipoSabor, Pizza pizza) {
-        System.out.println("\n[ 0 ] - Voltar para as opções do menu");
+        exibirOpcaoRetornar();
         System.out.print("Escolha uma opcão: ");
 
         Menu.escolherOpcoes(tipoSabor, pizza);
@@ -77,7 +77,7 @@ public class Mensagem {
     }
 
     public static void listarMetodosPagamento() {
-        System.out.println("\n");
+        Utils.jumpLine();
         Utils.showHeader("pagamento");
 
         for (EnumMetodoPagamento metodoPagamento : EnumMetodoPagamento.values()) {
@@ -85,5 +85,9 @@ public class Mensagem {
         }
 
         System.out.print("Escolha o método de pagamento: ");
+    }
+
+    private static void exibirOpcaoRetornar() {
+        System.out.println("\n[ 0 ] - Voltar para as opções do menu");
     }
 }
