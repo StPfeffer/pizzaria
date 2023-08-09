@@ -3,6 +3,7 @@ package br.com.pfeffer.atendimento;
 import br.com.pfeffer.atendimento.enums.EnumStatusAtendimento;
 import br.com.pfeffer.cliente.Cliente;
 import br.com.pfeffer.cliente.Endereco;
+import br.com.pfeffer.core.utils.LoggerPizzaria;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.pagamento.Pagamento;
 import br.com.pfeffer.pedido.Pedido;
@@ -29,14 +30,11 @@ public class Atendimento {
         EnumTipoPedido tipoPedido = Pedido.getTipoPedidoUsuario();
 
         switch (tipoPedido) {
-            case ENTREGA:
-            case BALCAO:
-                Atendimento.continuarAtendimento(tipoPedido);
-                break;
-            case LA_CARTE:
+            case ENTREGA, BALCAO -> Atendimento.continuarAtendimento(tipoPedido);
+            case LA_CARTE -> {
                 Mensagem.listarOpcoesMenu();
                 Pedido.realizarPedido(tipoPedido);
-                break;
+            }
         }
     }
 
@@ -69,10 +67,9 @@ public class Atendimento {
     }
 
     public static void finalizarAtendimento(Pagamento pagamento) {
-        System.out.println("Finalizando o atendimento...");
+        LoggerPizzaria.info("Finalizando o atendimento...");
 
         System.out.println(pagamento);
-//        Mapper.writeValueAsString(pagamento);
     }
 
     public int getNumero() {

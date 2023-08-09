@@ -17,22 +17,20 @@ public class Pagamento {
     private Date dataPagamento;
     private Cliente cliente;
     private Pedido pedido;
-    private Cupom cupom;
     private EnumMetodoPagamento metodoPagamento;
     private EnumStatusPagamento statusPagamento;
 
     public Pagamento() {
-        new Pagamento(0, 0, 0, null, cliente, pedido, null, null, EnumStatusPagamento.AGUARDANDO_PAGAMENTO);
+        new Pagamento(0, 0, 0, null, cliente, pedido, null, EnumStatusPagamento.AGUARDANDO_PAGAMENTO);
     }
 
-    public Pagamento(float valorTotal, float valorDesconto, float valorFinal, Date dataPagamento, Cliente cliente, Pedido pedido, Cupom cupom, EnumMetodoPagamento metodoPagamento, EnumStatusPagamento statusPagamento) {
+    public Pagamento(float valorTotal, float valorDesconto, float valorFinal, Date dataPagamento, Cliente cliente, Pedido pedido, EnumMetodoPagamento metodoPagamento, EnumStatusPagamento statusPagamento) {
         this.valorCheio = valorTotal;
         this.valorDesconto = valorDesconto;
         this.valorFinal = valorFinal;
         this.dataPagamento = dataPagamento;
         this.cliente = cliente;
         this.pedido = pedido;
-        this.cupom = cupom;
         this.metodoPagamento = metodoPagamento;
         this.statusPagamento = statusPagamento;
     }
@@ -59,18 +57,10 @@ public class Pagamento {
         float desconto = 0f;
 
         switch (pagamento.getMetodoPagamento()) {
-            case CARTAO_CREDITO:
-                desconto = 0f;
-                break;
-            case CARTAO_DEBITO:
-                desconto = 0.05f;
-                break;
-            case PIX:
-                desconto = 0.1f;
-                break;
-            default:
-                System.out.println("Método de pagamento inválido!");
-                break;
+            case CARTAO_CREDITO -> desconto = 0f;
+            case CARTAO_DEBITO -> desconto = 0.05f;
+            case PIX -> desconto = 0.1f;
+            default -> System.out.println("Método de pagamento inválido!");
         }
 
         pagamento.setValorCheio(valor[0]);
@@ -128,14 +118,6 @@ public class Pagamento {
 
     public void setPedido(Pedido pedido) {
         this.pedido = pedido;
-    }
-
-    public Cupom getCupom() {
-        return cupom;
-    }
-
-    public void setCupom(Cupom cupom) {
-        this.cupom = cupom;
     }
 
     public EnumMetodoPagamento getMetodoPagamento() {

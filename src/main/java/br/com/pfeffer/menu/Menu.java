@@ -48,34 +48,33 @@ public class Menu {
     public void listarPizzas(EnumTipoSabor tipoSabor, Pedido pedido) {
         EnumTamanhoPizza tamanhoPizza = Pizza.escolherTamanho(pedido);
 
-        Utils.jumpLine();
-
-        int itemId = 1;
-        for (ItemMenu item : itens) {
-            if (item.getSaborPizza() != null && item.getSaborPizza().getTipoSabor() == tipoSabor) {
-                System.out.printf("[ %2d ] %-28s - %s\n", itemId, item.getSaborPizza().getNome(), item.getSaborPizza().getDescricao());
-                itemId++;
-            }
-        }
+        exibirPizzas(tipoSabor);
 
         Mensagem.opcoesMenu(pedido, tamanhoPizza);
     }
 
     public static void listarPizzas(EnumTipoSabor tipoSabor, Pizza pizza) {
+        exibirPizzas(tipoSabor);
+
+        Mensagem.opcoesMenu(tipoSabor, pizza);
+    }
+
+    public static void exibirPizzas(EnumTipoSabor tipoSabor) {
         Utils.jumpLine();
 
         int itemId = 1;
         for (ItemMenu item : itens) {
             if (item.getSaborPizza() != null && item.getSaborPizza().getTipoSabor() == tipoSabor) {
-                System.out.printf("[ %2d ] %-28s - %s\n", itemId, item.getSaborPizza().getNome(), item.getSaborPizza().getDescricao());
+                System.out.printf("[ %2d ] %-28s - %s\n", itemId, item.getSaborPizza().getNome(), item.getSaborPizza().getIngredientes());
                 itemId++;
             }
         }
 
-        Mensagem.opcoesMenu(tipoSabor, pizza);
     }
 
     public void listarBebidas(Pedido pedido) {
+        Utils.jumpLine();
+
         int itemId = 1;
         for (ItemMenu item : itens) {
             if (item.getBebida() != null) {
@@ -93,27 +92,26 @@ public class Menu {
         Menu menu = new Menu();
 
         switch (Math.abs(opcao)) {
-            case 0:
-                escolherOpcoes(pedido);
-                break;
-            case 1:
+            case 0 -> escolherOpcoes(pedido);
+            case 1 -> {
                 Utils.jumpLine();
                 Utils.showHeader("pizzas salgadas");
                 menu.listarPizzasSalgadas(pedido);
-                break;
-            case 2:
+            }
+            case 2 -> {
                 Utils.jumpLine();
                 Utils.showHeader("pizzas doces");
                 menu.listarPizzasDoces(pedido);
-                break;
-            case 3:
+            }
+            case 3 -> {
                 Utils.jumpLine();
                 Utils.showHeader("bebidas");
                 menu.listarBebidas(pedido);
-                break;
-            default:
+            }
+            default -> {
                 System.out.print("Por favor, escolha uma opção válida: ");
                 escolherOpcoes(pedido);
+            }
         }
     }
 
@@ -147,12 +145,10 @@ public class Menu {
             int opcao2 = Utils.checkScannerInputForInteger("Por favor, escolha uma opção válida: ");
 
             switch (opcao2) {
-                case 1:
-                case 2:
-                    Pizza.adicionarSabor(tipoSabor, pizza, opcao2);
-                    break;
-                default:
-                    // TODO: Implementar default
+                case 1, 2 -> Pizza.adicionarSabor(tipoSabor, pizza, opcao2);
+                default -> {
+                }
+                // TODO: Implementar default
             }
 
             escolherOpcoes(tipoSabor, pizza);
@@ -166,6 +162,6 @@ public class Menu {
     }
 
     public void setItens(List<ItemMenu> itens) {
-        itens = itens;
+        Menu.itens = itens;
     }
 }

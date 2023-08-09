@@ -51,6 +51,29 @@ public class Utils {
         return input;
     }
 
+    public static float checkScannerInputForFloat(String mensagem) {
+        Scanner scanner = new Scanner(System.in);
+        float input;
+
+        do {
+            String temp = scanner.nextLine();
+
+            if (temp.isEmpty()) {
+                System.out.print(mensagem);
+                input = Float.MIN_VALUE;
+            } else {
+                try {
+                    input = Float.parseFloat(temp);
+                } catch (NumberFormatException e) {
+                    input = Float.MIN_VALUE;
+                    System.out.print(mensagem);
+                }
+            }
+        } while (input == Float.MIN_VALUE);
+
+        return input;
+    }
+
     public static void jumpLine() {
         System.out.println("\n");
     }

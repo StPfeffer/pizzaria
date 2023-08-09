@@ -33,17 +33,15 @@ public class Pedido {
     public static EnumTipoPedido getTipoPedidoUsuario() {
         int opcao = Utils.checkScannerInputForInteger("Escoha o tipo de atendimento baseado nas opções acima: ");
 
-        switch (Math.abs(opcao)) {
-            case 1:
-                return EnumTipoPedido.LA_CARTE;
-            case 2:
-                return EnumTipoPedido.ENTREGA;
-            case 3:
-                return EnumTipoPedido.BALCAO;
-            default:
+        return switch (Math.abs(opcao)) {
+            case 1 -> EnumTipoPedido.LA_CARTE;
+            case 2 -> EnumTipoPedido.ENTREGA;
+            case 3 -> EnumTipoPedido.BALCAO;
+            default -> {
                 System.out.print("Desculpe, não foi possível definir o tipo de pedido informado. Tente novamente: ");
-                return getTipoPedidoUsuario();
-        }
+                yield getTipoPedidoUsuario();
+            }
+        };
     }
 
     public static void realizarPedido(EnumTipoPedido tipoPedido) {
@@ -52,6 +50,7 @@ public class Pedido {
 
     public static void realizarPedido(Atendimento atendimento, EnumTipoPedido tipoPedido) {
         atendimento.setStatusAtendimento(EnumStatusAtendimento.ANDAMENTO);
+
         realizarPedido(atendimento, new Pedido(tipoPedido));
     }
 
@@ -67,25 +66,25 @@ public class Pedido {
         Menu menu = new Menu();
 
         switch (Math.abs(opcao)) {
-            case 1:
+            case 1 -> {
                 Utils.jumpLine();
                 Utils.showHeader("pizzas salgadas");
                 menu.listarPizzasSalgadas(pedido);
-                break;
-            case 2:
+            }
+            case 2 -> {
                 Utils.jumpLine();
                 Utils.showHeader("pizzas doces");
                 menu.listarPizzasDoces(pedido);
-                break;
-            case 3:
+            }
+            case 3 -> {
                 Utils.jumpLine();
                 Utils.showHeader("bebidas");
                 menu.listarBebidas(pedido);
-                break;
-            default:
+            }
+            default -> {
                 System.out.print("Por favor, escolha uma opção válida: ");
                 realizarPedido(pedido.getAtendimento(), pedido.getTipoPedido());
-                break;
+            }
         }
     }
 
@@ -94,7 +93,6 @@ public class Pedido {
         pedido.setStatusPedido(EnumStatusPedido.CONCLUIDO);
 
         Cliente cliente = pedido.getAtendimento().getCliente();
-
         if (cliente != null) {
             cliente.addPedido(pedido.getNumero());
         }

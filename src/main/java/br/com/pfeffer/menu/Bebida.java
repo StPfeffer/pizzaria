@@ -13,7 +13,6 @@ public class Bebida {
     private int sku;
     private float valor;
     private int saldo;
-
     private List<Bebida> bebidas;
 
     public Bebida() {

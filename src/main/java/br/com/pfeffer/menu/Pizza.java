@@ -67,19 +67,17 @@ public class Pizza {
         }
 
         switch (opcao) {
-            case 1:
+            case 1 -> {
                 Utils.jumpLine();
                 Utils.showHeader("pizzas salgadas");
                 Menu.listarPizzasSalgadas(pizza);
-                break;
-            case 2:
+            }
+            case 2 -> {
                 Utils.jumpLine();
                 Utils.showHeader("pizzas doces");
                 Menu.listarPizzasDoces(pizza);
-                break;
-            default:
-                adicionarSabor(tipoSabor, pizza, opcao, true);
-                break;
+            }
+            default -> adicionarSabor(tipoSabor, pizza, opcao, true);
         }
     }
 
@@ -94,25 +92,31 @@ public class Pizza {
     }
 
     public static float calcularValorPizza(Pedido pedido) {
-        float precoPizza = 0f;
+        float precoTotal = 0f;
 
         for (ItemPedido itemPedido : pedido.getItemPedido()) {
             Pizza pizza = itemPedido.getPizza();
-            int fatiasPorSabor = pizza.getTamanho().getFatias();
-            int numSabores = pizza.getSabores().size();
-            float precoPorSabor = 0f;
-
-
-            // precoPorSabor = pizza.getSabores().stream().mapToFloat(saborPizza -> saborPizza.getPreco() / pizza.getTamanho().getFatias()).sum();
-            for (SaborPizza saborPizza : pizza.getSabores()) {
-                precoPorSabor += saborPizza.getPreco() / pizza.getTamanho().getFatias();
-            }
-
-            float precoPorPizza = precoPorSabor * fatiasPorSabor;
-            precoPizza += precoPorPizza / numSabores;
+            float precoPorSabor = calcularPrecoPorSabor(pizza);
+            float precoPorPizza = precoPorSabor * pizza.getTamanho().getFatias() / pizza.getSabores().size();
+            precoTotal += precoPorPizza;
         }
 
-        return precoPizza + pedido.getItemPedido().get(0).getPizza().getTamanho().getAcrescimo();
+        float acrescimoTamanho = pedido.getItemPedido().get(0).getPizza().getTamanho().getAcrescimo();
+        return precoTotal + acrescimoTamanho;
+    }
+
+    private static float calcularPrecoPorSabor(Pizza pizza) {
+        return calcularPrecoTotalSabores(pizza) / pizza.getTamanho().getFatias();
+    }
+
+    private static float calcularPrecoTotalSabores(Pizza pizza) {
+        float precoTotal = 0f;
+
+        for (SaborPizza saborPizza : pizza.getSabores()) {
+            precoTotal += saborPizza.getPreco();
+        }
+
+        return precoTotal;
     }
 
     public List<SaborPizza> getSabores() {
