@@ -45,7 +45,7 @@ public class Cliente {
             endereco = Endereco.criarNovoEndereco();
         }
 
-        boolean validacao = Cliente.validarCliente(nome, telefone, endereco);
+        boolean validacao = Cliente.validarCliente(tipoPedido, nome, telefone, endereco);
 
         if (!validacao) {
             cadastrarCliente(tipoPedido, true);
@@ -54,7 +54,7 @@ public class Cliente {
         return new Cliente(nome, telefone, endereco);
     }
 
-    public static boolean validarCliente(String nome, String telefone, Endereco endereco) {
+    public static boolean validarCliente(EnumTipoPedido tipoPedido, String nome, String telefone, Endereco endereco) {
         boolean valido = true;
 
         if (nome.isEmpty()) {
@@ -67,7 +67,7 @@ public class Cliente {
             valido = false;
         }
 
-        if (endereco.getLogradouro().isEmpty()) {
+        if (tipoPedido == EnumTipoPedido.ENTREGA && endereco.getLogradouro().isEmpty()) {
             LoggerPizzaria.warn("O endereço do cliente está vazio!", Cliente.class, false, true);
             valido = false;
         }

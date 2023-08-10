@@ -6,7 +6,6 @@ import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.menu.enums.EnumTamanhoPizza;
 import br.com.pfeffer.menu.enums.EnumTipoSabor;
 import br.com.pfeffer.pedido.Pedido;
-import br.com.pfeffer.pedido.ItemPedido;
 
 import java.util.ArrayList;
 import java.util.List;
