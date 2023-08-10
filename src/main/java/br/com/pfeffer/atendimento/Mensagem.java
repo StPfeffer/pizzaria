@@ -1,5 +1,6 @@
 package br.com.pfeffer.atendimento;
 
+import br.com.pfeffer.core.utils.LoggerPizzaria;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.menu.Menu;
 import br.com.pfeffer.menu.Pizza;
@@ -21,8 +22,11 @@ public class Mensagem {
     }
 
     public static void listarOpcoesMenu() {
+        LoggerPizzaria.info("Listando as opções do menu", Mensagem.class, true, false);
+
         Utils.jumpLine();
         Utils.showHeader("menu");
+
         System.out.println("[ 1 ] - Ver Pizzas Salgadas");
         System.out.println("[ 2 ] - Ver Pizzas Doces");
         System.out.println("[ 3 ] - Ver Bebidas");
@@ -30,8 +34,11 @@ public class Mensagem {
     }
 
     public static void listarOpcoesPizzas() {
+        LoggerPizzaria.info("Listando as opções de pizzas", Mensagem.class, true, false);
+
         Utils.jumpLine();
         Utils.showHeader("menu");
+
         System.out.println("[ 1 ] - Ver Pizzas Salgadas");
         System.out.println("[ 2 ] - Ver Pizzas Doces");
         System.out.print("Escolha a opção que deseja ver: ");
@@ -67,13 +74,13 @@ public class Mensagem {
     public static boolean adicionarSabor() {
         System.out.print("Deseja adicionar outro sabor? [S/ N]: ");
 
-        return Utils.getYesOrNo();
+        return Utils.yesOrNo();
     }
 
     public static boolean adicionarBebida() {
         System.out.print("Deseja adicionar uma bebida? [S/ N]: ");
 
-        return Utils.getYesOrNo();
+        return Utils.yesOrNo();
     }
 
     public static void listarMetodosPagamento() {

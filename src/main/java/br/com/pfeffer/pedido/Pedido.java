@@ -3,8 +3,10 @@ package br.com.pfeffer.pedido;
 import br.com.pfeffer.atendimento.Atendimento;
 import br.com.pfeffer.atendimento.enums.EnumStatusAtendimento;
 import br.com.pfeffer.cliente.Cliente;
+import br.com.pfeffer.core.utils.LoggerPizzaria;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.menu.Menu;
+import br.com.pfeffer.menu.Pizza;
 import br.com.pfeffer.pagamento.Pagamento;
 import br.com.pfeffer.pedido.enums.EnumStatusPedido;
 import br.com.pfeffer.pedido.enums.EnumTipoPedido;
@@ -12,7 +14,6 @@ import br.com.pfeffer.pedido.enums.EnumTipoPedido;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Implementar a classe Mesa no Pedido
 public class Pedido {
     private int numero;
     private EnumTipoPedido tipoPedido;
@@ -30,7 +31,7 @@ public class Pedido {
         this.statusPedido = EnumStatusPedido.EM_PREPARACAO;
     }
 
-    public static EnumTipoPedido getTipoPedidoUsuario() {
+    public static EnumTipoPedido escolherTipoPedido() {
         int opcao = Utils.checkScannerInputForInteger("Escoha o tipo de atendimento baseado nas opções acima: ");
 
         return switch (Math.abs(opcao)) {
@@ -38,8 +39,9 @@ public class Pedido {
             case 2 -> EnumTipoPedido.ENTREGA;
             case 3 -> EnumTipoPedido.BALCAO;
             default -> {
-                System.out.print("Desculpe, não foi possível definir o tipo de pedido informado. Tente novamente: ");
-                yield getTipoPedidoUsuario();
+                LoggerPizzaria.warn("Desculpe, não foi possível definir o tipo de pedido informado.", Pedido.class, true, true);
+                System.out.print("Tente novamente: ");
+                yield escolherTipoPedido();
             }
         };
     }
@@ -65,34 +67,24 @@ public class Pedido {
 
         Menu menu = new Menu();
 
-        switch (Math.abs(opcao)) {
-            case 1 -> {
-                Utils.jumpLine();
-                Utils.showHeader("pizzas salgadas");
-                menu.listarPizzasSalgadas(pedido);
-            }
-            case 2 -> {
-                Utils.jumpLine();
-                Utils.showHeader("pizzas doces");
-                menu.listarPizzasDoces(pedido);
-            }
-            case 3 -> {
-                Utils.jumpLine();
-                Utils.showHeader("bebidas");
-                menu.listarBebidas(pedido);
-            }
-            default -> {
-                System.out.print("Por favor, escolha uma opção válida: ");
-                realizarPedido(pedido.getAtendimento(), pedido.getTipoPedido());
-            }
-        }
+        Menu.handleOpcoesMenu(menu, opcao, pedido);
     }
 
     public static void finalizarPedido(Pedido pedido) {
-        pedido.getAtendimento().setStatusAtendimento(EnumStatusAtendimento.FINALIZADO);
+        LoggerPizzaria.info("Finalizando o pedido...", Pedido.class, true, false);
+
         pedido.setStatusPedido(EnumStatusPedido.CONCLUIDO);
 
+        try {
+            Thread.sleep(1500);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        LoggerPizzaria.info("Pedido finalizado", Pedido.class, false, false);
+
         Cliente cliente = pedido.getAtendimento().getCliente();
+
         if (cliente != null) {
             cliente.addPedido(pedido.getNumero());
         }
@@ -103,7 +95,7 @@ public class Pedido {
         pagamento.setMetodoPagamento(Pagamento.escolherMetodoPagamento());
         pagamento.setValorCheio(Pagamento.calcularValor(pagamento));
 
-        Atendimento.finalizarAtendimento(pagamento);
+        Atendimento.finalizarAtendimento(pedido);
     }
 
     public int getNumero() {

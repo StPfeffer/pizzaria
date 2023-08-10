@@ -1,10 +1,12 @@
 package br.com.pfeffer.cliente;
 
+import br.com.pfeffer.core.utils.LoggerPizzaria;
 import br.com.pfeffer.core.utils.Utils;
-import br.com.pfeffer.pedido.Pedido;
+import br.com.pfeffer.pedido.enums.EnumTipoPedido;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Cliente {
     private final int id;
@@ -20,10 +22,62 @@ public class Cliente {
         this.endereco = endereco;
     }
 
-    public static boolean validarCliente() {
-        System.out.print("Deseja alterar as informações? [S / N]: ");
+    public static Cliente cadastrarCliente(EnumTipoPedido tipoPedido, boolean retry) {
+        String mensagem = "Iniciando o cadastro do cliente";;
 
-        return Utils.getYesOrNo();
+        if (retry) {
+            mensagem = "Reiniciando o cadastro do cliente";
+        }
+
+        LoggerPizzaria.info(mensagem, Cliente.class, false, true);
+
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Insira seu nome: ");
+        String nome = scanner.nextLine();
+
+        System.out.print("Insira seu telefone: ");
+        String telefone = Utils.onlyNumbers(scanner.nextLine());
+
+        Endereco endereco = null;
+
+        if (tipoPedido == EnumTipoPedido.ENTREGA) {
+            endereco = Endereco.criarNovoEndereco();
+        }
+
+        boolean validacao = Cliente.validarCliente(nome, telefone, endereco);
+
+        if (!validacao) {
+            cadastrarCliente(tipoPedido, true);
+        }
+
+        return new Cliente(nome, telefone, endereco);
+    }
+
+    public static boolean validarCliente(String nome, String telefone, Endereco endereco) {
+        boolean valido = true;
+
+        if (nome.isEmpty()) {
+            LoggerPizzaria.warn("O nome do cliente está vazio!", Cliente.class, true, false);
+            valido = false;
+        }
+
+        if (telefone.isEmpty()) {
+            LoggerPizzaria.warn("O telefone do cliente está vazio!", Cliente.class, false, false);
+            valido = false;
+        }
+
+        if (endereco.getLogradouro().isEmpty()) {
+            LoggerPizzaria.warn("O endereço do cliente está vazio!", Cliente.class, false, true);
+            valido = false;
+        }
+
+        if (valido) {
+            System.out.print("Deseja alterar as informações? [S / N]: ");
+            return !Utils.yesOrNo();
+        }
+
+        return valido;
     }
 
     public int getId() {

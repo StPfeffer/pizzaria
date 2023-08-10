@@ -16,7 +16,7 @@ public class Utils {
         return new Random().nextInt();
     }
 
-    public static boolean getYesOrNo() {
+    public static boolean yesOrNo() {
         Scanner scanner = new Scanner(System.in);
 
         char opcao = scanner.nextLine().trim().toUpperCase().charAt(0);
@@ -36,7 +36,7 @@ public class Utils {
             String temp = scanner.nextLine();
 
             if (temp.isEmpty()) {
-                System.out.print(mensagem);
+                System.out.print(mensagem); // Mantive como sout para escrever na mesma linha
                 input = Integer.MIN_VALUE;
             } else {
                 try {

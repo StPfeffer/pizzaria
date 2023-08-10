@@ -2,10 +2,12 @@ package br.com.pfeffer.pagamento;
 
 import br.com.pfeffer.atendimento.Mensagem;
 import br.com.pfeffer.cliente.Cliente;
+import br.com.pfeffer.core.utils.LoggerPizzaria;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.menu.Pizza;
 import br.com.pfeffer.pagamento.enums.EnumMetodoPagamento;
 import br.com.pfeffer.pagamento.enums.EnumStatusPagamento;
+import br.com.pfeffer.pedido.ItemPedido;
 import br.com.pfeffer.pedido.Pedido;
 
 import java.util.Date;
@@ -35,7 +37,9 @@ public class Pagamento {
         this.statusPagamento = statusPagamento;
     }
 
-    public static EnumMetodoPagamento escolherMetodoPagamento() {
+    public static EnumMetodoPagamento escolherMetodoPagamento() { // TODO: VALIDAÇÃO PARA INDEX OUT OF BOUND
+        LoggerPizzaria.info("Escolhendo o método de pagamento", Pagamento.class, false, false);
+
         Mensagem.listarMetodosPagamento();
         int opcao = Utils.checkScannerInputForInteger("Por favor, digite uma opção válida: ");
 
@@ -44,23 +48,24 @@ public class Pagamento {
 
     // TODO: Desconto/acréscimo/parcela dependendo do metodoPagamento
     public static float calcularValor(Pagamento pagamento) {
+        LoggerPizzaria.info("Calculando o valor total do pedido", Pagamento.class, false, true);
+
         final float[] valor = {pagamento.getPedido().getValorPedido()}; // gambiarra
 
-        pagamento.getPedido().getItemPedido().forEach(itemPedido -> {
+        for (ItemPedido itemPedido : pagamento.getPedido().getItemPedido()) {
             if (itemPedido.getBebida() != null) {
                 valor[0] += itemPedido.getBebida().getValor();
             } else if (itemPedido.getPizza() != null) {
-                valor[0] += Pizza.calcularValorPizza(pagamento.getPedido());
+                valor[0] += Pizza.calcularValorPizza(itemPedido.getPizza(), pagamento.getPedido());
             }
-        });
+        }
 
         float desconto = 0f;
 
         switch (pagamento.getMetodoPagamento()) {
-            case CARTAO_CREDITO -> desconto = 0f;
             case CARTAO_DEBITO -> desconto = 0.05f;
             case PIX -> desconto = 0.1f;
-            default -> System.out.println("Método de pagamento inválido!");
+            default -> desconto = 0f;
         }
 
         pagamento.setValorCheio(valor[0]);

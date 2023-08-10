@@ -29,14 +29,14 @@ public class Bebida {
         this.saldo = saldo;
     }
 
-    public static Bebida adicionarBebida(int opcao, Pedido pedido) {
+    public static Bebida adicionarBebida(int opcao) {
         Bebida bebida = new Bebida();
 
         return bebida.getBebidas().get(opcao - 1);
     }
 
-    public static void adicionarBebida(Pizza pizza) {
-        // TODO: Implementar isso
+    public static void adicionarBebida(Pizza pizza, Pedido pedido) {
+        Menu.listarBebidas(pizza, pedido);
     }
 
     public String getNome() {

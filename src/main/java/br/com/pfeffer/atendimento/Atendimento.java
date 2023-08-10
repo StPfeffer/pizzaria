@@ -27,7 +27,9 @@ public class Atendimento {
     }
 
     public static void iniciarAtendimento() {
-        EnumTipoPedido tipoPedido = Pedido.getTipoPedidoUsuario();
+        EnumTipoPedido tipoPedido = Pedido.escolherTipoPedido();
+
+        LoggerPizzaria.info("Tipo do pedido escolhido: " + tipoPedido.getDescricao(), Atendimento.class, true, false);
 
         switch (tipoPedido) {
             case ENTREGA, BALCAO -> Atendimento.continuarAtendimento(tipoPedido);
@@ -39,26 +41,7 @@ public class Atendimento {
     }
 
     public static void continuarAtendimento(EnumTipoPedido tipoPedido) {
-        Scanner scanner = new Scanner(System.in);
-        Endereco endereco = null;
-
-        System.out.print("Insira seu nome: ");
-        String nome = scanner.nextLine();
-
-        System.out.print("Insira seu telefone: ");
-        String telefone = Utils.onlyNumbers(scanner.nextLine());
-
-        if (tipoPedido == EnumTipoPedido.ENTREGA) {
-            endereco = Endereco.criarNovoEndereco();
-        }
-
-        boolean validacao = Cliente.validarCliente();
-
-        if (validacao) {
-            continuarAtendimento(tipoPedido);
-        }
-
-        Cliente cliente = new Cliente(nome, telefone, endereco);
+        Cliente cliente = Cliente.cadastrarCliente(tipoPedido, false);
 
         Atendimento atendimento = new Atendimento(cliente, EnumStatusAtendimento.ANDAMENTO);
 
@@ -66,10 +49,12 @@ public class Atendimento {
         Pedido.realizarPedido(atendimento, tipoPedido);
     }
 
-    public static void finalizarAtendimento(Pagamento pagamento) {
-        LoggerPizzaria.info("Finalizando o atendimento...");
+    public static void finalizarAtendimento(Pedido pedido) {
+        pedido.getAtendimento().setStatusAtendimento(EnumStatusAtendimento.FINALIZADO);
 
-        System.out.println(pagamento);
+        LoggerPizzaria.info("Atendimento finalizado", Atendimento.class, false, true);
+
+        System.out.println(pedido);
     }
 
     public int getNumero() {

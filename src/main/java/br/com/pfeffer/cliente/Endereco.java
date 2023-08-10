@@ -1,5 +1,7 @@
 package br.com.pfeffer.cliente;
 
+import br.com.pfeffer.atendimento.Atendimento;
+import br.com.pfeffer.core.utils.LoggerPizzaria;
 import br.com.pfeffer.core.utils.Utils;
 
 import java.util.Scanner;
@@ -20,6 +22,8 @@ public class Endereco {
     }
 
     public static Endereco criarNovoEndereco() {
+        LoggerPizzaria.info("Iniciando o cadastro do endereço do cliente", Endereco.class, true, true);
+
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Insira o nome da rua/avenida: ");

@@ -1,6 +1,7 @@
 package br.com.pfeffer.menu;
 
 import br.com.pfeffer.atendimento.Mensagem;
+import br.com.pfeffer.core.utils.LoggerPizzaria;
 import br.com.pfeffer.core.utils.Utils;
 import br.com.pfeffer.menu.enums.EnumTamanhoPizza;
 import br.com.pfeffer.menu.enums.EnumTipoSabor;
@@ -37,13 +38,23 @@ public class Pizza {
         return EnumTamanhoPizza.values()[opcao - 1];
     }
 
-    public static Pizza montarPizza(int opcao, EnumTamanhoPizza tamanho) {
+    public static Pizza montarPizza(int opcao, EnumTamanhoPizza tamanho, Pedido pedido) {
+        LoggerPizzaria.info("Montando a pizza", Pizza.class, true, false);
+
         Pizza pizza = new Pizza();
         pizza.setTamanho(tamanho);
 
         SaborPizza saborPizza = new SaborPizza();
 
-        pizza.addSabor(saborPizza.getSabores().get(opcao - 1));
+        // Isso aqui não faz validação alguma sobre o limite do array. Por exemplo,
+        // caso escolher a opção 11 ao listar as pizzas salgadas será considerado o
+        // primeiro sabor doce (opcao - 1). IndexOutOfBounds pode acontecer aqui.
+        SaborPizza saborEscolhido = saborPizza.getSabores().get(opcao - 1);
+
+        LoggerPizzaria.info("Sabor escolhido: " + saborEscolhido.getNome(), Pizza.class, false, true);
+
+        pizza.addSabor(saborEscolhido);
+        boolean bebidaAdicionada = false;
 
         for (int i = 1; i < pizza.getTamanho().getFatias() / 4; i++) {
             if (Mensagem.adicionarSabor()) {
@@ -51,17 +62,24 @@ public class Pizza {
 
                 adicionarSabor(null, pizza, null);
             } else if (Mensagem.adicionarBebida()) {
-                Mensagem.adicionarBebida();
+                bebidaAdicionada = true;
+                Bebida.adicionarBebida(pizza, pedido);
                 break;
             } else {
                 break;
             }
         }
 
+        if (Mensagem.adicionarBebida() && !bebidaAdicionada) {
+            Bebida.adicionarBebida(pizza, pedido);
+        }
+
         return pizza;
     }
 
     public static void adicionarSabor(EnumTipoSabor tipoSabor, Pizza pizza, Integer opcao) {
+        LoggerPizzaria.info("Adicionando um sabor à  pizza", Pizza.class, true, true);
+
         if (opcao == null) {
             opcao = Utils.checkScannerInputForInteger("Por favor, escolha uma opção válida: ");
         }
@@ -81,7 +99,7 @@ public class Pizza {
         }
     }
 
-    public static void adicionarSabor(EnumTipoSabor tipoSabor, Pizza pizza, Integer opcao, boolean flag) {
+    public static void adicionarSabor(EnumTipoSabor tipoSabor, Pizza pizza, Integer opcao, boolean flag) { // isso aqui é gambiarra
         SaborPizza saborPizza = new SaborPizza();
 
         if (tipoSabor == EnumTipoSabor.DOCE) {
@@ -91,32 +109,23 @@ public class Pizza {
         pizza.addSabor(saborPizza.getSabores().get(opcao - 1));
     }
 
-    public static float calcularValorPizza(Pedido pedido) {
-        float precoTotal = 0f;
+    public static float calcularValorPizza(Pizza pizza, Pedido pedido) {
+        int numSabores = pizza.getSabores().size();
+        float precoPorSabor = calcularPrecoPorSabor(pizza);
 
-        for (ItemPedido itemPedido : pedido.getItemPedido()) {
-            Pizza pizza = itemPedido.getPizza();
-            float precoPorSabor = calcularPrecoPorSabor(pizza);
-            float precoPorPizza = precoPorSabor * pizza.getTamanho().getFatias() / pizza.getSabores().size();
-            precoTotal += precoPorPizza;
-        }
+        float precoTotal = calcularPrecoPorPizza(pizza, precoPorSabor) / numSabores;
 
-        float acrescimoTamanho = pedido.getItemPedido().get(0).getPizza().getTamanho().getAcrescimo();
-        return precoTotal + acrescimoTamanho;
+        return precoTotal + pedido.getItemPedido().get(0).getPizza().getTamanho().getAcrescimo();
     }
 
     private static float calcularPrecoPorSabor(Pizza pizza) {
-        return calcularPrecoTotalSabores(pizza) / pizza.getTamanho().getFatias();
+        return (float) pizza.getSabores().stream()
+                .mapToDouble(saborPizza -> saborPizza.getPreco() / pizza.getTamanho().getFatias())
+                .sum();
     }
 
-    private static float calcularPrecoTotalSabores(Pizza pizza) {
-        float precoTotal = 0f;
-
-        for (SaborPizza saborPizza : pizza.getSabores()) {
-            precoTotal += saborPizza.getPreco();
-        }
-
-        return precoTotal;
+    private static float calcularPrecoPorPizza(Pizza pizza, float precoPorSabor) {
+        return precoPorSabor * pizza.getTamanho().getFatias();
     }
 
     public List<SaborPizza> getSabores() {
